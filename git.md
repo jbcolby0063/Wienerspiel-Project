@@ -82,6 +82,7 @@
     * Provde a good description of the issue, question, or request that you are having
     * Make sure to provide code if the issue is specfic to a particular piece of code within the program
     * use mentions when specifically asking another developer a specific question or alerting a specific develop about an issue
+
 * Labels used when creating a new Issue:
     * <b>Bug</b>: When stating that there is an error in the part of the code
     * <b>Help wanted</b>: When help is needed from another developer on a particular task
