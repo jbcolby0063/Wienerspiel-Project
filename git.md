@@ -4,13 +4,25 @@
 <b><center>Follow the the below naming conventions when creating branches(don't add the "[ ]"  when creating the branches)</center></b>
 
 * main(this is the main/master branch): "main"
-* develop: "develop"
-* feature: "feature/[Feature-Creator]/[Name-of-feature]"
+* Develop: "Develop"
+* Feature: "Feature/[Feature-Creator]/[Name-of-feature]"
 * Release: "Release/[Version-number]
-* hotfix: "hotfix/[Person's-Name]/[Description-of-hotfix]"
+* Hotfix: "Hotfix/[Person's-Name]/[Description-of-hotfix]"
 
 ### Way to Name version number
-* [release-number].[hotfix-number]
+* ```console 
+    <version-number>.<hotfix-number>
+    ```
+
+### How to switch branches
+* to add a branch use the following code:
+    * ``` console
+        ~$ git branch <enter name of branch>
+        ```
+* To switch branches:
+    * ``` console
+        ~$ git checkout <name of branch>
+        ```
 
 ### What is the develop branch
 * This includes all current code that the developers are working on. you will pull from this branch to create the feature branches
@@ -42,7 +54,7 @@
 * Pull Requests are basically ways we can discuss proposed changes that we have made to the code before merging code
 * when you are ready to merge code, you must create a pull request so that other developers can review your code and make any last minute changes to the code before merging
 * What to do when you want to create a pull request
-    * When pushing your code:
+    * First push your code:
         * ```console
             ~$ git push origin <branch name>
             ```
@@ -56,4 +68,31 @@
 
 
 ## Issues and Commit Messages
+
+### Commit Naming Conventions
+* how to do commits in git
+    * ```console
+        ~$ git commit -m "<enter message here>"
+        ```
+* When commiting a piece of code, one must provide a detailed explanation of the changes they made and what issues they addressed, if any
+
+### Issue Naming Conventions
+* Conventions when creating issues within the repository
+    * Make sure to add labels(look below to know what labels to use)
+    * Provde a good description of the issue, question, or request that you are having
+    * Make sure to provide code if the issue is specfic to a particular piece of code within the program
+    * use mentions when specifically asking another developer a specific question or alerting a specific develop about an issue
+* Labels used when creating a new Issue:
+    * <b>Bug</b>: When stating that there is an error in the part of the code
+    * <b>Help wanted</b>: When help is needed from another developer on a particular task
+    * <b>Duplicate</b>: When the issue is already present
+    * <b>Question</b>: Further clarification is required on a particular task or if a particalar piece of code is confusing
+    * <b>Enhancement</b>: New Feature Request
+    * <b>Documentation</b>: Resquesting additions or changes to markdown files or code documentation
+    * <b>React</b>: Use this label if the issue is regarding something with React
+    * <b>Flask</b>: Use this label if the issue is regarding something with Flask database
+    * <b>Styling</b>: Use this label if the issue is regarding with the styling of the application
+    * <b>Firebase</b>: Use this label if the issue is regarding something with Firebase.
+
+
 
