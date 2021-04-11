@@ -29,4 +29,3 @@
 
 # Trello
 * Link to our trello board: <a href="https://trello.com/invite/b/l3VzuzxB/976a51f9732a7438424c6cab59cfd488/wienerspiel-project-board">Trello Board</a>
-=======
