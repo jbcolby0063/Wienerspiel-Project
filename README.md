@@ -29,3 +29,18 @@
 
 # Trello
 * Link to our trello board: <a href="https://trello.com/invite/b/l3VzuzxB/976a51f9732a7438424c6cab59cfd488/wienerspiel-project-board">Trello Board</a>
+
+# Test Account
+1. <strong>Facebook</strong>
+
+* Id: oqxuqfq_lauson_1618170532@tfbnw.net
+* Pass: 38yar8hoaz4
+
+2. <strong>Instagram</strong>
+
+* Id: lauson9371
+* Pass: tamu123
+
+3. <strong>Twitter</strong>
+* Id: bobiciv293@684hh.com
+* Pass: tamu1234
