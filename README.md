@@ -42,5 +42,5 @@
 * Pass: tamu123
 
 3. <strong>Twitter</strong>
-* Id: bobiciv293@684hh.com
-* Pass: tamu1234
+* Id: tamudsctest@gmail.com
+* Pass: tamutest123
