@@ -38,7 +38,7 @@
 
 2. <strong>Instagram</strong>
 
-* Id: tamutest
+* Id: dscaccount
 * Pass: tamu123
 
 3. <strong>Twitter</strong>
