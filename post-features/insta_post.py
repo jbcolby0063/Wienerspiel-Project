@@ -7,7 +7,7 @@ import facebook
 #only allows for one image post or 1 video post!
 class insta_post:
     def __init__(self, post_title, post_description, media_type):
-        self.access = 'EAAoK4UW8A2cBADyh1pKZBIQTDMHu58P3zZC60baQibW2SGCpxxYkegepRJQ1HO21Kb063pAtolYUcdc3EuV3B9jFEEflhaiUv02s9WUrEZAfDS2OFKjTvhOGXGEzZBZCNP7wutZC2K4xbNfvUWZABLfQGcbrwZAiNnZA0KqNpNwtQqWameU5QxbsiKn4fs3Ka7Xrfd0jQbPgds6IZBZClkwZC4Up'
+        self.access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
         self.graph_domain = 'https://graph.facebook.com/'
         self.graph_version = 'v10.0'
         self.endpoint_base = self.graph_domain + self.graph_version + '/'
@@ -17,6 +17,7 @@ class insta_post:
         self.post_description = post_description
         self.media_id = None
         self.media_type = media_type
+        self.post_id = None
     
     def api_call(self, url, endpointParams, type):
         #conditional that posts the endpoints to the url specified
@@ -57,28 +58,87 @@ class insta_post:
         endpointParams = dict()
         endpointParams['creation_id'] = self.media_id
         endpointParams['access_token'] = self.access
+        self.api_call(url, endpointParams, 'POST')
+        time.sleep(30)
+        get_url = self.endpoint_base + self.insta_account + '/media?access_token=' + self.access
+        ids = requests.request('GET', get_url).json()
+        self.post_id = ids['data'][0]['id']
+        return self.post_id
 
-        return self.api_call(url, endpointParams, 'POST')
-    
+    #analytics
     def impression_counter(self):
-        url = self.endpoint_base + str(self.media_id) + '/insights?metric=impressions&access_token=' + self.access
-        graph_api_fb = facebook.GraphAPI(access_token= self.access, version= 3.1)
-        metric_info = graph_api_fb.request(path=str(self.media_id) + '/insights?metric=impressions', args=None, post_args=None, method='GET')
-        #return self.api_call(url, endpointParams, 'GET') #self.api_call(url, endpointParams, 'GET') # make the api call
-        return metric_info
-
-    '''
+        url = 'https://graph.facebook.com/' + str(self.post_id) + '/insights?metric=impressions&access_token=' + self.access
+        data = requests.request('GET', url).json()['data'][0]['values'][0]['value']
+        return data
+    
+    
     def comment_counter(self):
-        pass
+        url = 'https://graph.facebook.com/v10.0/' + str(self.post_id) + '?fields=comments_count&access_token=' + self.access
+        data = requests.request('GET', url).json()
+        return data['comments_count']
 
-    def engagement_counter(self):
-        pass
+    def like_counter(self):
+        url = 'https://graph.facebook.com/v10.0/' + str(self.post_id) + '?fields=like_count&access_token=' + self.access
+        data = requests.request('GET', url).json()
+        return data['comments_count']
 
     def reach_counter(self):
-        pass
-
-    '''
+        url = 'https://graph.facebook.com/' + str(self.post_id) + '/insights?metric=reach&access_token=' + self.access
+        data = requests.request('GET', url).json()['data'][0]['values'][0]['value']
+        return data
     
+
+
+#user account analytics
+def get_insta_account_reach_count():
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=reach&period=week&fields=values&access_token=' + access
+    info = requests.request('GET', url).json()
+    return info['data'][0]['values'][0]['value']
+
+def get_insta_account_follower_count(): #need a minimum of 100 followers in order to get data
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=follower_count&period=day&fields=values&access_token=' + access
+    info = requests.request('GET', url).json()
+    if(len(info['data']) == 0):
+        return 0
+    else:
+        return info['data'][0]['values'][0]['value']
+
+def get_insta_account_audience_country(): #need a minimum of 100 followers in order to get data
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_country&period=lifetime&fields=values&access_token=' + access
+    info = requests.request('GET', url).json()
+    if(len(info['data']) == 0):
+        return 0
+    else:
+        return info['data']
+
+def get_insta_account_profile_views():
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=profile_views&period=day&fields=values&access_token=' + access
+    info = requests.request('GET', url).json()
+    return info['data'][0]['values'][0]['value']
+
+
+def get_insta_account_online_followers(): #need a minimum of 100 followers in order to get data
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=online_followers&period=lifetime&fields=values&access_token=' + access
+    info = requests.request('GET', url).json()
+    if(len(info['data']) == 0):
+        return 0
+    else:
+        return info['data']
+
+def get_insta_account_audience_gender_age():
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_gender_age&period=lifetime&fields=values&access_token=' + access
+    info = requests.request('GET', url).json()
+    if(len(info['data']) == 0):
+        return 0
+    else:
+        return info['data']
+
 
 
 def main():
@@ -92,8 +152,11 @@ def main():
     #print(post1.get_media_ids(media_url2))
     print(post1.publish_post())
     print('post published')
-    data = post1.impression_counter()
+    data = post1.reach_counter()
     print(data)
+
+    print('User account analytics')
+    print(get_insta_account_reach_count())
 
 
 if __name__ == '__main__':

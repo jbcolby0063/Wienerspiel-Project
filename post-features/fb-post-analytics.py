@@ -9,7 +9,7 @@ class fb_post:
     def __init__(self, post_title, post_description, media_type):
         #connecting to facebook api
         try:
-            self.access = 'EAAoK4UW8A2cBADw7uDuHMmlReeNG4WUf1aStrGHUiNRnWUePTFPUA8vIMqHyXa00RPhszOLezNK2hicFE1xAKZC0t0ZBZBZB2RxM6PV61bZBo4Eyw2LS26M2nupZA97FLZB1oODzvtyqijFeG1E4XcvDZBDQQA4WO7KIxzjzTtyoZBJbYgp5Vep1u1aSN41ZBAwyqOv41BEn4vuA0Nc4YvzwtT'
+            self.access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
             self.graph_api_fb = facebook.GraphAPI(access_token= self.access, version= 3.1)
             print(self.graph_api_fb)
         except Exception as e:
@@ -102,13 +102,13 @@ class fb_post:
 
 #page overall statistics
 def get_fb_page_post_engagements():
-    access = 'EAAoK4UW8A2cBADyh1pKZBIQTDMHu58P3zZC60baQibW2SGCpxxYkegepRJQ1HO21Kb063pAtolYUcdc3EuV3B9jFEEflhaiUv02s9WUrEZAfDS2OFKjTvhOGXGEzZBZCNP7wutZC2K4xbNfvUWZABLfQGcbrwZAiNnZA0KqNpNwtQqWameU5QxbsiKn4fs3Ka7Xrfd0jQbPgds6IZBZClkwZC4Up'
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_post_engagements/week?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
     return page_engagement
 
-def get_fb_page_impressions_by_age_gender_unique(): #need to check code
-    access = 'EAAoK4UW8A2cBADyh1pKZBIQTDMHu58P3zZC60baQibW2SGCpxxYkegepRJQ1HO21Kb063pAtolYUcdc3EuV3B9jFEEflhaiUv02s9WUrEZAfDS2OFKjTvhOGXGEzZBZCNP7wutZC2K4xbNfvUWZABLfQGcbrwZAiNnZA0KqNpNwtQqWameU5QxbsiKn4fs3Ka7Xrfd0jQbPgds6IZBZClkwZC4Up'
+def get_fb_page_impressions_by_age_gender_unique(): #need to check metric : provides no information
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_impressions_by_age_gender_unique/week?fields=values', args=None, post_args=None, method='GET')['data']
     if(len(page_engagement) == 0):
@@ -120,21 +120,19 @@ def get_fb_page_views_external_referral(): #not sure if it is a good metric
     pass
 
 def get_fb_page_views_total():
-   access = 'EAAoK4UW8A2cBADyh1pKZBIQTDMHu58P3zZC60baQibW2SGCpxxYkegepRJQ1HO21Kb063pAtolYUcdc3EuV3B9jFEEflhaiUv02s9WUrEZAfDS2OFKjTvhOGXGEzZBZCNP7wutZC2K4xbNfvUWZABLfQGcbrwZAiNnZA0KqNpNwtQqWameU5QxbsiKn4fs3Ka7Xrfd0jQbPgds6IZBZClkwZC4Up'
+   access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
    graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
    page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_views_total/week?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
    return page_engagement
 
-def get_fb_page_fans_online_per_day(): #need to check code
-    access = 'EAAoK4UW8A2cBADyh1pKZBIQTDMHu58P3zZC60baQibW2SGCpxxYkegepRJQ1HO21Kb063pAtolYUcdc3EuV3B9jFEEflhaiUv02s9WUrEZAfDS2OFKjTvhOGXGEzZBZCNP7wutZC2K4xbNfvUWZABLfQGcbrwZAiNnZA0KqNpNwtQqWameU5QxbsiKn4fs3Ka7Xrfd0jQbPgds6IZBZClkwZC4Up'
+def get_fb_page_fans_online_per_day(): #need to check metric : provides no information
+    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_fans_online_per_day/week?fields=values', args=None, post_args=None, method='GET')['data']
     if(len(page_engagement) == 0):
         return 0
     else:
         return page_engagement[0]['values']['value']
-
-
 
 
 
