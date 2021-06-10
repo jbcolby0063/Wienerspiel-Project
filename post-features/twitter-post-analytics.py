@@ -6,8 +6,8 @@ from requests_oauthlib import OAuth1Session
 class twitter_post:
     def __init__(self, post_description, post_title):
         try:
-            auth = tweepy.OAuthHandler('VNOMAyltOWlUYO0ZISI6Z2XPn', 'UW2LfkAY9ra1DKHZEO0d5GvNhV3eFSPmgkvWR0EQ4AWq6EuHTP')
-            auth.set_access_token('1392227559815979009-Z9tE91aQN9cOQuLPBrbEXtxZO8NeDJ', 'bkYtt0plmSDFoNWOq62W83phAKEk3yWYuPwxh9ETszYp6')
+            auth = tweepy.OAuthHandler('Dms71H6xrSebuT8YOvwWQnQ4G', 'CSSifyiVm6480KrAwcU7CBJZoD38En3tc8aND26Hle3Wy0q9U9')
+            auth.set_access_token('1392227559815979009-m5jZ3bVfPPhPAFks2dJ4WehvneDmPm', 'fpkKpHxK2Z0CGu8HIZMoNPduzn5FglA2g03M51e5KzuTQ')
             self.api = tweepy.API(auth)
             print('connection established', self.api)
         except Exception as e:
@@ -42,6 +42,8 @@ class twitter_post:
         self.post_status_id = status_tweet.id
         return status_tweet
     
+    #twitter platform analytics : need to check code to see what is wrong!!!
+
     def retweet_counter(self):
         # how many times a tweet has been retweeted
         tweet_status = self.api.get_status(self.post_status_id)
@@ -54,14 +56,14 @@ class twitter_post:
         btoken = 'AAAAAAAAAAAAAAAAAAAAAPr7PgEAAAAAsxCzM1iwtPOHjDCLMxEq2ma0qqE%3D1Eal97m1QHOesSR0VzruaCL4gI0rfKqHZc5CZCL6r9YS889v2C'
         headers = {"Authorization": "Bearer {}".format(btoken)}
         
-        data = requests.request('GET',url, headers=headers)
+        data = requests.request('GET',url)
         #json_data = json.loads(data)
         return data.json()
     
     def reply_counter(self):
         user = 'tamudsc'
         
-        t = self.api.search(q=f'to:{user}', since_id=self.post_status_id,)
+        t = self.api.search(q=f'to:{user}', since_id=self.post_status_id)
 
         replies = 0
         for i in range(len(t)):
@@ -100,6 +102,7 @@ def main():
     tweet1.tweet_post_media()
     #print('test:',tweet1.video_views_counter())
     print('id:',tweet1.post_status_id)
+    print(tweet1.like_counter())
     #print('impression_counter:', tweet1.impression_counter(tweet1.post_status_id))
 
 
