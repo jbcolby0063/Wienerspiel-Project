@@ -6,8 +6,8 @@ from requests_oauthlib import OAuth1Session
 class twitter_post:
     def __init__(self, post_description, post_title):
         try:
-            auth = tweepy.OAuthHandler('Dms71H6xrSebuT8YOvwWQnQ4G', 'CSSifyiVm6480KrAwcU7CBJZoD38En3tc8aND26Hle3Wy0q9U9')
-            auth.set_access_token('1392227559815979009-m5jZ3bVfPPhPAFks2dJ4WehvneDmPm', 'fpkKpHxK2Z0CGu8HIZMoNPduzn5FglA2g03M51e5KzuTQ')
+            auth = tweepy.OAuthHandler('yEAiw5i6Ijh9c1WoFSlvuBTGc', '1yxeBhAMe28uGYgr3rsankuEqyrxUz1IhaR4BC5KEjF4MWeNMu', callback='http://12.0.0.1')
+            auth.set_access_token('1392227559815979009-vPtneSaNTPOwHoQiyWTWgG6xXBzPf7', '6TaKMNisINlalSzJeiFbKm6uPqoV3rA2A5pXs2nX2GorZ')
             self.api = tweepy.API(auth)
             print('connection established', self.api)
         except Exception as e:
@@ -51,16 +51,16 @@ class twitter_post:
     
     def impression_counter(self): #NEED TO LOOK OVER!!!
         #url = 'https://api.twitter.com/labs/1/tweets/metrics/private?' + 'ids=' + str(tweet_id)
-        url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + "?tweet.fields=non_public_metrics"
+        url = 'https://api.twitter.com/2/tweets/:id?oauth_callback=http://12.0.0.1&oauth_consumer_key=AfoNgJ6wCkHocqMyQOgqfuKBB&oauth_nonce=8SlLt8mOB21&oauth_signature=DZtZYPXqO7NimVUx71mOJqpoXTk=&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1623355622&oauth_token=1392227559815979009-lz7E7cz8Qqxry1RYc0OwDDfCbDwfii&oauth_version=1.0&tweet.fields=non_public_metrics'
         print(url)
-        btoken = 'AAAAAAAAAAAAAAAAAAAAAPr7PgEAAAAAsxCzM1iwtPOHjDCLMxEq2ma0qqE%3D1Eal97m1QHOesSR0VzruaCL4gI0rfKqHZc5CZCL6r9YS889v2C'
-        headers = {"Authorization": "Bearer {}".format(btoken)}
+        #btoken = 'AAAAAAAAAAAAAAAAAAAAAPr7PgEAAAAAsxCzM1iwtPOHjDCLMxEq2ma0qqE%3D1Eal97m1QHOesSR0VzruaCL4gI0rfKqHZc5CZCL6r9YS889v2C'
+        #headers = {"Authorization": "Bearer {}".format(btoken)}
         
         data = requests.request('GET',url)
         #json_data = json.loads(data)
         return data.json()
     
-    def reply_counter(self):
+    def reply_counter(self): #was working before. Some issue with keys!!!
         user = 'tamudsc'
         
         t = self.api.search(q=f'to:{user}', since_id=self.post_status_id)
@@ -102,7 +102,7 @@ def main():
     tweet1.tweet_post_media()
     #print('test:',tweet1.video_views_counter())
     print('id:',tweet1.post_status_id)
-    print(tweet1.like_counter())
+    print(tweet1.impression_counter())
     #print('impression_counter:', tweet1.impression_counter(tweet1.post_status_id))
 
 
