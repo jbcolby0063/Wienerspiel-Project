@@ -65,6 +65,15 @@ class insta_post:
         self.post_id = ids['data'][0]['id']
         return self.post_id
 
+    def set_insta_post_id(self, post_id):
+        self.post_id = post_id
+        return self.post_id
+    
+    def set_insta_media_type(self, media_type):
+        self.media_type = media_type
+        return self.media_type
+    
+
     #analytics
     def impression_counter(self):
         url = 'https://graph.facebook.com/' + str(self.post_id) + '/insights?metric=impressions&access_token=' + self.access
@@ -80,7 +89,7 @@ class insta_post:
     def like_counter(self):
         url = 'https://graph.facebook.com/v10.0/' + str(self.post_id) + '?fields=like_count&access_token=' + self.access
         data = requests.request('GET', url).json()
-        return data['comments_count']
+        return data['like_count']
 
     def reach_counter(self):
         url = 'https://graph.facebook.com/' + str(self.post_id) + '/insights?metric=reach&access_token=' + self.access
@@ -152,7 +161,7 @@ def main():
     #print(post1.get_media_ids(media_url2))
     print(post1.publish_post())
     print('post published')
-    data = post1.reach_counter()
+    data = post1.like_counter()
     print(data)
 
     print('User account analytics')
