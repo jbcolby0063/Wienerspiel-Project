@@ -119,10 +119,7 @@ def get_fb_page_impressions_by_age_gender_unique(): #need to check metric : prov
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_impressions_by_age_gender_unique/week?fields=values', args=None, post_args=None, method='GET')['data']
-    if(len(page_engagement) == 0):
-        return 0
-    else:
-        return page_engagement
+    return page_engagement
 
 def get_fb_page_views_external_referral(): #not sure if it is a good metric
     pass
@@ -143,10 +140,7 @@ def get_fb_page_fans_online_per_day(): #need to check metric : provides no infor
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_fans_online_per_day/week?fields=values', args=None, post_args=None, method='GET')['data']
-    if(len(page_engagement) == 0):
-        return 0
-    else:
-        return page_engagement
+    return page_engagement
 
 
 
