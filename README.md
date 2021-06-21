@@ -44,3 +44,16 @@
 3. <strong>Twitter</strong>
 * Id: tamudsctest@gmail.com
 * Pass: tamutest123
+
+# Modules
+
+pip install pyrebase
+python -m pip install flask
+
+npm i bootstrap react-bootstrap 
+npm install --save react-chartjs-2 chart.js
+npm install react-router-dom
+npm i firebase
+
+
+
