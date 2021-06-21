@@ -80,7 +80,6 @@ class insta_post:
         data = requests.request('GET', url).json()['data'][0]['values'][0]['value']
         return data
     
-    
     def comment_counter(self):
         url = 'https://graph.facebook.com/v10.0/' + str(self.post_id) + '?fields=comments_count&access_token=' + self.access
         data = requests.request('GET', url).json()
@@ -103,50 +102,39 @@ def get_insta_account_reach_count():
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=reach&period=week&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
-    return info['data'][0]['values'][0]['value']
+    return info['data'][0]['values'][1]['value']
 
 def get_insta_account_follower_count(): #need a minimum of 100 followers in order to get data
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=follower_count&period=day&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
-    if(len(info['data']) == 0):
-        return 0
-    else:
-        return info['data'][0]['values'][0]['value']
+    return info['data']
 
 def get_insta_account_audience_country(): #need a minimum of 100 followers in order to get data
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_country&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
-    if(len(info['data']) == 0):
-        return 0
-    else:
-        return info['data']
+    return info['data']
 
 def get_insta_account_profile_views():
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=profile_views&period=day&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
-    return info['data'][0]['values'][0]['value']
+    print('info:', info)
+    return info['data'][0]['values'][1]['value']
 
 
 def get_insta_account_online_followers(): #need a minimum of 100 followers in order to get data
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=online_followers&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
-    if(len(info['data']) == 0):
-        return 0
-    else:
-        return info['data']
+    return info['data']
 
 def get_insta_account_audience_gender_age():
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_gender_age&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
-    if(len(info['data']) == 0):
-        return 0
-    else:
-        return info['data']
+    return info['data']
 
 
 
@@ -155,7 +143,7 @@ def main():
     media_url1 = 'http://thewowstyle.com/wp-content/uploads/2015/01/nature-images.jpg'
     #media_url2 = 'http://wonderfulengineering.com/wp-content/uploads/2014/01/highway-wallpapers-15.jpg'
     #video_url = 'https://justinstolpe.com/sandbox/ig_publish_content_vid.mp4'
-
+    '''
     print(post1.get_media_ids(media_url1))
     #time.sleep(20) # wait 5 seconds if the media object is still being processed
     #print(post1.get_media_ids(media_url2))
@@ -163,7 +151,7 @@ def main():
     print('post published')
     data = post1.like_counter()
     print(data)
-
+    '''
     print('User account analytics')
     print(get_insta_account_reach_count())
 
