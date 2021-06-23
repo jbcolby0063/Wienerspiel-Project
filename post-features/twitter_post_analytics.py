@@ -117,10 +117,8 @@ class twitter_post:
             return data_dict.json()['includes']['media'][0]['organic_metrics']['view_count']
 
     def tweet_hashtags(self):
-        url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + '?tweet.fields=non_public_metrics,organic_metrics&media.fields=non_public_metrics,organic_metrics&expansions=attachments.media_keys,attachments.entities'
-        headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
-        data_dict = requests.request('GET', url, auth=headeroauth)
-        return data_dict.json()
+        entitiles_dict = self.api.get_status(self.post_status_id).entities
+        return entitiles_dict['hashtags'] #returns a list of dictionaries with the hashtags!!
         
 
 def main():
