@@ -130,7 +130,7 @@ def get_insta_account_online_followers(): #need a minimum of 100 followers in or
     info = requests.request('GET', url).json()
     return info['data']
 
-def get_insta_account_audience_gender_age():
+def get_insta_account_audience_gender_age(): #need a minimum of 100 followers in order to get data
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_gender_age&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
