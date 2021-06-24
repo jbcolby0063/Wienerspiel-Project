@@ -54,6 +54,7 @@
 * npm install --save react-chartjs-2 chart.js
 * npm install react-router-dom
 * npm i firebase
+* pip install schedule
 
 
 
