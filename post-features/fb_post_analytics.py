@@ -140,14 +140,14 @@ def get_fb_page_fans_online_per_day(): #need to check metric : provides no infor
     return page_engagement
 
 
-
+'''
 # for testing purposes ONLY
 def main():
     #post_title = 'test1'
     #post_description = 'test number 3'
     #post1 = fb_post(post_title,post_description, 'VIDEO')
     #user_input = int(input('Want to post with media or without media (0: without media, 1: with media) '))
-    '''
+    
     if(user_input == 0):
         post1.post_no_media()
     else:
@@ -155,9 +155,9 @@ def main():
         media_2 = ['https://justinstolpe.com/sandbox/ig_publish_content_vid.mp4']
         print(post1.post_media_video(media_2))
         print(post1.get_fb_post_impressions())
-    '''
     #print(get_fb_page_views_total())
 
 
 if __name__ == '__main__':
     main()
+'''
