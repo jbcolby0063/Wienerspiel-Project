@@ -136,14 +136,14 @@ def get_insta_account_audience_gender_age(): #need a minimum of 100 followers in
     info = requests.request('GET', url).json()
     return info['data']
 
-
+'''
 
 def main():
     post1 = insta_post('title1', 'this is a post done using python', 'IMAGE')
     media_url1 = 'http://thewowstyle.com/wp-content/uploads/2015/01/nature-images.jpg'
     #media_url2 = 'http://wonderfulengineering.com/wp-content/uploads/2014/01/highway-wallpapers-15.jpg'
     #video_url = 'https://justinstolpe.com/sandbox/ig_publish_content_vid.mp4'
-    '''
+
     print(post1.get_media_ids(media_url1))
     #time.sleep(20) # wait 5 seconds if the media object is still being processed
     #print(post1.get_media_ids(media_url2))
@@ -151,10 +151,11 @@ def main():
     print('post published')
     data = post1.like_counter()
     print(data)
-    '''
+
     print('User account analytics')
     print(get_insta_account_reach_count())
 
 
 if __name__ == '__main__':
     main()
+'''
