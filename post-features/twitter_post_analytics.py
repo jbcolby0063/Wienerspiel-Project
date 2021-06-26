@@ -85,6 +85,8 @@ class twitter_post:
         data_dict = requests.request('GET', url, auth=headeroauth)
         if('url_link_clicks' in data_dict.json()['data']['organic_metrics']):
             return data_dict.json()['data']['organic_metrics']['url_link_clicks']
+        else:
+            return None
     
     def user_profile_clicks_twitter(self):
         headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
@@ -115,18 +117,17 @@ class twitter_post:
             headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
             data_dict = requests.request('GET', url, auth=headeroauth)
             return data_dict.json()['includes']['media'][0]['organic_metrics']['view_count']
+        return None
 
     def tweet_hashtags(self):
         entitiles_dict = self.api.get_status(self.post_status_id).entities
         return entitiles_dict['hashtags'] #returns a list of dictionaries with the hashtags!!
         
-
+'''
 def main():
-    '''
     - plan to test the code out tomorrow and see what issues there may be
     - make sure that media works properly FIRST
     - check that one can send tweets without posting
-    '''
 
     post_description = 'post test 4!' + '#testAccount' + " " + '#helloworldpython'
     #media_for_post = ['pexels-linda-ellershein-1749900.jpeg', 'highway-wallpapers-15.jpeg']
@@ -144,3 +145,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+'''
