@@ -55,6 +55,6 @@
 * npm install react-router-dom
 * npm i firebase
 * pip install schedule
-
+* pip install facebook-sdk
 
 
