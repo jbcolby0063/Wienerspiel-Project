@@ -11,7 +11,7 @@ def get_post_information(firebase_table_id, sending_user):
     '''
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
-    name_of_db = 'auth-development-3cb88-default-rtdb'
+    name_of_db = 'auth-development-3cb88-default-rtdb'  
     post_information = firebase_connection.get('/' + name_of_db + '/users/' + sending_user + '/' + firebase_table_id, '')
     return post_information
 
