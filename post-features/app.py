@@ -27,14 +27,18 @@ def update_daily_views():
 fb_views = db.child("Facebook").child("totalViews").get().val()
 ig_views = db.child("Instagram").child("totalViews").get().val()
 
-fb_data = []
-ig_data = []
+fb_x = []
+fb_y = []
+ig_x = []
+ig_y = []
 
 for key,value in fb_views.items():
-    fb_data.append((key,value))
+    fb_x.append(key)
+    fb_y.append(value)
 
 for key,value in fb_views.items(): 
-    ig_data.append((key,value))
+    ig_x.append(key)
+    ig_y.append(value)
 
 #Obtained fb_data and ig_data as list of x,y pairs
 
@@ -42,9 +46,9 @@ for key,value in fb_views.items():
 app = Flask(__name__)
 
 @app.route("/") #map url route to funtion
-def main():
-    labels = [row[0] for row in fb_data]
-    values = [row[1] for row in fb_data]
+def main(): #For Instagram
+    labels = ig_x
+    values = ig_y
     
     return render_template("index.html",labels=labels, values=values)
 if __name__ == "__main__":
