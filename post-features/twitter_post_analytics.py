@@ -128,7 +128,6 @@ def main():
     - plan to test the code out tomorrow and see what issues there may be
     - make sure that media works properly FIRST
     - check that one can send tweets without posting
-
     post_description = 'post test 4!' + '#testAccount' + " " + '#helloworldpython'
     #media_for_post = ['pexels-linda-ellershein-1749900.jpeg', 'highway-wallpapers-15.jpeg']
     media_2 = ['2_Second_Video.mp4']
