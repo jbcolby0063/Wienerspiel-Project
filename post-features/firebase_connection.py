@@ -1,4 +1,3 @@
-#connecting to firebase
 from firebase import firebase
 import insta_post
 import twitter_post_analytics
@@ -11,7 +10,7 @@ def get_post_information(firebase_table_id, sending_user):
     '''
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
-    name_of_db = 'auth-development-3cb88-default-rtdb'  
+    name_of_db = 'auth-development-3cb88-default-rtdb'
     post_information = firebase_connection.get('/' + name_of_db + '/users/' + sending_user + '/' + firebase_table_id, '')
     return post_information
 
@@ -130,4 +129,3 @@ def get_insta_post_analytics(name_of_metric, firebase_table_id, sending_user):
         return instagram_post_object.like_counter()
     else:
         return instagram_post_object.reach_counter()
-
