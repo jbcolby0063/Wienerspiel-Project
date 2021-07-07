@@ -9,6 +9,7 @@
     "bootstrap": "^4.6.0",
     "chart.js": "^3.3.2",
     "firebase": "^8.7.0",
+    "flask": "^0.2.10",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-chartjs-2": "^3.0.3",
@@ -19,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-api": "cd api && flask run --no-debugger",
+    "start-api": "cd api && python -m flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test-api": "cd api && flask test",
