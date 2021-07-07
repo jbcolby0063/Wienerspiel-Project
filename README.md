@@ -54,7 +54,8 @@ DSC TAMU + Wienerspiel Project
 * pip install python-firebase
 * pip install tweepy
 * python -m pip install flask
-
+* pip install yarn
+* pip install python-dotenv
 * npm i bootstrap react-bootstrap 
 * npm install --save react-chartjs-2 chart.js
 * npm install react-router-dom
