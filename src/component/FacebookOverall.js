@@ -7,6 +7,7 @@ export default function FacebookOverall() {
     const [genderData, setGenderData] = useState("")
     const [ageData, setAgeData] = useState("")
 
+    //Will need to replace with real data
     const genderChart = {
         labels: ["Male", "Female"],
         datasets: [
@@ -41,10 +42,24 @@ export default function FacebookOverall() {
     }
 
     useEffect(() => {
+        fetch('/analytics').then(res => res.json()).then(data => {
+            setEngagement(data.engagement)
+            
+            setGenderData([40, 60])
+            setAgeData([14, 30, 50, 16, 15, 8, 4])
+
+            /*
+            setGenderData(data.impressions)
+            setAgeData(data.impressions)
+            */
+        })
+    }, [])
+
+    /* useEffect(() => {
         setEngagement(15)
         setGenderData([40, 60])
         setAgeData([14, 30, 50, 16, 15, 8, 4])
-    }, [])
+    }, []) */
 
     return (
         <div className="overflow-auto" style={{maxHeight: "350px"}}>

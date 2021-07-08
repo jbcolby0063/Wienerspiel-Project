@@ -1,7 +1,39 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Line } from 'react-chartjs-2'
 
 export default function TotalViews() {
+    const [horizLabels, setHorizLabels] = useState([])
+    const [fbViews, setFbViews] = useState([])
+    const [igViews, setIgViews] = useState([])
+    
+    useEffect(() => {
+        fetch('/analytics').then(res => res.json()).then(data => {
+            setHorizLabels(data.fb_x_labels)
+            setFbViews(data.fb_y_labels)
+            setIgViews(data.ig_y_labels)
+        })
+    }, [])
+
+    const totalViewsData = {
+        labels: horizLabels,
+        datasets: [
+            {
+                label: 'Facebook',
+                data: fbViews,
+                fill: false,
+                borderColor: "#4267B2",
+                tension: "0.1"
+            }, 
+            {            
+                label: 'Instagram',
+                data: igViews,
+                fill: false,
+                borderColor: "#E1306C",
+                tension: "0.1"
+            }
+        ]
+    }
+    /*
     const totalViewsData = {
         labels: ['Jun 19', 'Jun 20', 'Jun 21', 'Jun 22', 'Jun 23', 'Jun 24', 'Jun 25'],
         datasets: [
@@ -21,6 +53,7 @@ export default function TotalViews() {
           },
         ],
     };
+    */
 
     const totalViewsOptions = {
         responsive: true,

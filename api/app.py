@@ -24,20 +24,20 @@ def update_daily_views():
     db.child("Instagram").child("totalViews").update({datetime.today().strftime("%d-%m-%y"): insta_post.get_insta_account_reach_count()})
     db.child("Facebook").child("totalViews").update({datetime.today().strftime("%d-%m-%y"): fb_post_analytics.get_fb_daily_page_views_total()})
 
+
 fb_views = db.child("Facebook").child("totalViews").get().val()
 ig_views = db.child("Instagram").child("totalViews").get().val()
 
 fb_x = []
 fb_y = []
-ig_x = []
+
 ig_y = []
 
 for key,value in fb_views.items():
     fb_x.append(key)
     fb_y.append(value)
 
-for key,value in fb_views.items(): 
-    ig_x.append(key)
+for key,value in ig_views.items(): 
     ig_y.append(value)
 
 #Obtained fb_data and ig_data as list of x,y pairs
@@ -45,12 +45,13 @@ for key,value in fb_views.items():
 
 app = Flask(__name__)
 
-@app.route("/") #map url route to funtion
-def main(): #For Instagram
-    labels = ig_x
-    values = ig_y
-    
-    return render_template("index.html",labels=labels, values=values)
+@app.route("/analytics") #map url route to funtion
+def analytics():
+    """Returns data to plot on FacebookOverall.js and TotalViews.js"""
+    return {'engagement':fb_post_analytics.get_fb_weekly_page_views_total(),
+            'impressions':fb_post_analytics.get_fb_page_impressions_by_age_gender_unique(),
+            'fb_x_labels':fb_x, 'fb_y_labels':fb_y, 'ig_y_labels':ig_y}
+
 if __name__ == "__main__":
     app.run()
 
