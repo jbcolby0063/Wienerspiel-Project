@@ -22,6 +22,14 @@ export const buttonStyle = {
     fontWeight: "bold"
 }
 
+export const buttonStyle_ver2 = {
+    backgroundColor: "#ADADAD", 
+    fontFamily: "Roboto", 
+    fontStyle: "normal", 
+    fontWeight: "bold",
+    border: "none"
+}
+
 export const postButtonStyle ={
     backgroundColor: "#BB0101", 
     fontFamily: "Roboto", 

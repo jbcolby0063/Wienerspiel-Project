@@ -6,13 +6,14 @@ import { useAuth } from '../context/AuthContext'
 import logo from '../LogoSocial.svg'
 import { normalText } from '../style'
 import account from "../account.svg"
+import account_nonadmin from "../account_nonadmin.svg"
 
 export const SidebarContext = React.createContext()
 
-export default function Topbar() {
+export default function Topbar({current}) {
     const history = useHistory() 
     const [error, setError] = useState("")
-    const { currentUser, logout, showSidebar, setSidebarVisible, currentScreen, setCurrentScreen } = useAuth()
+    const { currentUser, logout, showSidebar, setSidebarVisible, currentScreen, setCurrentScreen, currentAdmin } = useAuth()
 
     async function handleLogout() {
         setError('')
@@ -41,6 +42,30 @@ export default function Topbar() {
         }
     }
 
+    function onClickSetAdministrator() {
+        history.push("/update-admin");
+        setCurrentScreen(window.innerWidth)
+        if (currentScreen < 1300) {
+            setSidebarVisible(false)
+        }
+    }
+
+    function onClickChangeAdminCode() {
+        history.push("/change-admin-code");
+        setCurrentScreen(window.innerWidth)
+        if (currentScreen < 1300) {
+            setSidebarVisible(false)
+        }
+    }
+
+    function onClickAccountList() {
+        history.push("/account-list");
+        setCurrentScreen(window.innerWidth)
+        if (currentScreen < 1300) {
+            setSidebarVisible(false)
+        }
+    }
+
     function onClickTopbarLogo() {
         history.push('/');
         setCurrentScreen(window.innerWidth)
@@ -48,6 +73,7 @@ export default function Topbar() {
             setSidebarVisible(false)
         }
     }
+
     
     return (
         <div>
@@ -58,13 +84,19 @@ export default function Topbar() {
                 </div>
                 <Dropdown className="d-flex align-items-center flex-row-reverse" style={{flex: 1, marginRight: "10px"}}>
                     <Dropdown.Toggle variant="none" id="account-dropdown" style={{padding: "0px"}}>
-                        <img src={account} alt="account icon" />
+                        {currentAdmin === "admin" ? 
+                            <img src={account} alt="account icon" /> :
+                            <img src={account_nonadmin} alt="account icon" />}
+                        
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu alignRight="true">
                         <Dropdown.Item disabled="true"><div style={{color: "#BB0101"}}>{currentUser.email}</div></Dropdown.Item>
-                        <Dropdown.Item onClick={onClickUpdateEmail}>Update Email</Dropdown.Item>
-                        <Dropdown.Item onClick={onClickUpdatePassword}>Update Password</Dropdown.Item>
+                        <Dropdown.Item onClick={onClickUpdateEmail} style={current === "updateEmailPage" ? {backgroundColor: "#DADADA"} : {}}>Update Email</Dropdown.Item>
+                        <Dropdown.Item onClick={onClickUpdatePassword} style={current === "updatePasswordPage" ? {backgroundColor: "#DADADA"} : {}}>Update Password</Dropdown.Item>
+                        <Dropdown.Item onClick={onClickSetAdministrator} style={current === "setAdminPage" ? {backgroundColor: "#DADADA"} : {}}>Set Administrator</Dropdown.Item>
+                        {currentAdmin === "admin" && <Dropdown.Item onClick={onClickChangeAdminCode} style={current === "changeAdminCodePage" ? {backgroundColor: "#DADADA"} : {}}>Change Admin Code</Dropdown.Item>}
+                        {currentAdmin === "admin" && <Dropdown.Item onClick={onClickAccountList} style={current === "accountListPage" ? {backgroundColor: "#DADADA"} : {}}>Account List</Dropdown.Item>}
                         <Dropdown.Item onClick={handleLogout} style={normalText}>Logout </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

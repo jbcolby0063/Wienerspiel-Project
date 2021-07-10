@@ -9,6 +9,7 @@ export function useAuth() { // access to AuthContext provider through useAuth()
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
+    const [currentAdmin, setCurrentAdmin] = useState("") // current user admin status
     const [loading, setLoading] = useState(true)
     const [sidebarVisible, setSidebarVisible] = useState(true)
     const [currentScreen, setCurrentScreen] = useState(window.innerWidth)
@@ -45,6 +46,7 @@ export function AuthProvider({ children }) {
     useEffect(() => { // set the user in currentUser once the user is created
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
+            setCurrentAdmin(user.displayName)
             setLoading(false) // after the verification of the user, we stop the loading
             if (window.innerWidth < 1300) {
                 setSidebarVisible(false)
@@ -56,6 +58,8 @@ export function AuthProvider({ children }) {
 
     const value = {
         currentUser,
+        currentAdmin,
+        setCurrentAdmin,
         login,
         signup,
         logout,

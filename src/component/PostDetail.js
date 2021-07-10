@@ -12,6 +12,7 @@ import {ReactComponent as DeleteLogo} from '../deleteLogo.svg'
 
 export default function PostDetail({data, show, onHide}) {
     const idL = data.id
+    const userL = data.user
     const titleL = data.title
     const textL = data.text
     const timeL = data.time
@@ -25,15 +26,17 @@ export default function PostDetail({data, show, onHide}) {
     const [fileLoading, setFileLoading] = useState(true)
     const [deleteShow, setDeleteShow] = useState(false)
     const [deleteError, setDeleteError] = useState(false)
-    const { setPostDetailVisible, currentUser } = useAuth()
+    const { setPostDetailVisible, currentUser, currentAdmin } = useAuth()
+
     function cancelImage() {
         setPostDetailVisible(false)
     }
 
     async function deletePost() { // delete post data from firebase
-        const userID = currentUser.email.split("@")[0]
+        const userID = userL.split("@")[0]
         const dbRef = db.ref("users/" + userID).child(data.id)
         const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL)
+
         try {
             setDeleteError(false)
             await dbRef.remove()
@@ -51,8 +54,9 @@ export default function PostDetail({data, show, onHide}) {
     }
 
 
+
     async function getImage() { // firebase image retrieve 
-        const userID = currentUser.email.split("@")[0]
+        const userID = userL.split("@")[0]
         const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL)
         const imageURLList = []
         try {
@@ -68,10 +72,12 @@ export default function PostDetail({data, show, onHide}) {
         setFileLoading(false)
     }
 
+
     useEffect(() => {
         setFileError(false)
         setFileLoading(true)
         getImage()
+        
     }, [])
 
     return (
@@ -106,7 +112,7 @@ export default function PostDetail({data, show, onHide}) {
                                     <h3>{titleL}</h3>
                                 </Card.Title>
                                 <Card.Subtitle>
-                                    <div style={{color: "#898989"}}>{timeL}</div>
+                                    <div style={{color: "#898989"}}>{userL} posted at {timeL}</div>
                                 </Card.Subtitle>
                                 <div className="mt-3 mb-2">
                                 {fileLoading && 

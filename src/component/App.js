@@ -5,15 +5,21 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
+import AdminRoute from './AdminRoute'
 import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
+import UpdateAdmin from "./UpdateAdmin";
+import AccountList from "./AccountList"
+import ChangeAdminCode from "./ChangeAdminCode"
 import Analytics from "./Analytics"
 
 // https://getbootstrap.com/docs/4.1/utilities/flex/
 // npm i bootstrap react-bootstrap 
 // npm install react-router-dom
 // npm i firebase
+// npm install firebase-admin --save
+// Firebase admin sdk ---> Generate new private key
 // npm install --save react-chartjs-2 chart.js
 
 function App() {
@@ -25,6 +31,9 @@ function App() {
               <PrivateRoute path="/analytics" component={Analytics} /> 
               <PrivateRoute path="/update-profile" component={UpdateProfile} /> 
               <PrivateRoute path="/update-password" component={UpdatePassword} /> 
+              <PrivateRoute path="/update-admin" component={UpdateAdmin} /> 
+              <AdminRoute path="/account-list" component={AccountList} /> 
+              <AdminRoute path="/change-admin-code" component={ChangeAdminCode} /> 
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
               <Route path="/forgot-password" component={ForgotPassword} />

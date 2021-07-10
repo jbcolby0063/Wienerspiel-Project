@@ -26,7 +26,7 @@ import InstagramOverall from './InstagramOverall'
 
 
 export default function Analytics() {
-    const { currentUser, sidebarVisible, postDetailData, setPostDetailData } = useAuth() // access directly to the values from the AuthContext.Provider 
+    const { currentUser, sidebarVisible, postDetailData, setPostDetailData, currentAdmin } = useAuth() // access directly to the values from the AuthContext.Provider 
     const [dataList, setDataList] = useState()
     const [modalShow, setModalShow] = useState(false)
     let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(15) + "VIEWERS"
@@ -37,17 +37,42 @@ export default function Analytics() {
     }
 
     useEffect(() => {
-        const userID = currentUser.email.split("@")[0]
-        const postList = db.ref("users/" + userID)
+        if (currentAdmin === "admin") {
+            const userRef = db.ref("users")
+            
+            userRef.on('value', (snapshot) => { // get all posts for admin
+                const getData = []
+                snapshot.forEach((childSnapShot) => {
+                    const data = childSnapShot.val()
+                    
+                    for (let id in data) {
+                        getData.push({ id, ...data[id] })
+                    }
+                    
+                })
+                getData.sort((a, b) => {
+                    if (a.time < b.time) return -1
+                    if (a.time > b.time) return 1
+                })
+                setDataList(getData)
+                
+            })
+            console.log(dataList)
+
+        } else {
+            const userID = currentUser.email.split("@")[0]
+            const postList = db.ref("users/" + userID)
         
-        postList.on('value', (snapshot) => { // get all post data from realtime db
-            const data = snapshot.val()
-            const getData = []
-            for (let id in data) {
-                getData.push({ id, ...data[id] })
-            }
-            setDataList(getData)
-        })
+            postList.on('value', (snapshot) => { // get all post data from realtime db
+                const data = snapshot.val()
+                const getData = []
+                for (let id in data) {
+                    getData.push({ id, ...data[id] })
+                }
+                setDataList(getData)
+            })
+        }
+        
     }, [])
 
     return (
