@@ -27,11 +27,12 @@ def publish_to_platform(firebase_table_id, sending_user, media_files, platform_n
     name_of_db = 'auth-development-3cb88-default-rtdb'
     post_title = post_information['title']
     post_description = post_information['text']
-    media_type = ' ' #will need to store the media type on firebase!!
-    if(platform_name == 'facebook'):
+    media_type = post_information['filetype']
+    social_media_list = post_information['socialMedia']
+    if('facebookCheck' in social_media_list):
         facebook_post_object = fb_post_analytics.fb_post(post_title, post_description, media_type)
         if(facebook_post_object.media_type == 'VIDEO'):
-            video_url = media_files #will get the media file (should not be in list format). Must also be a url not file path
+            video_url = media_files[0] #will get the media file (should not be in list format). Must also be a url not file path
             facebook_post_object.post_media_video(video_url)
             firebase_connection.put('/' + name_of_db + '/users/' + sending_user + '/' + firebase_table_id, 'Facebook_post_id', str(facebook_post_object.post_id))
         elif(facebook_post_object.media_type == 'IMAGE'):
@@ -40,7 +41,7 @@ def publish_to_platform(firebase_table_id, sending_user, media_files, platform_n
         else:
             facebook_post_object.post_no_media()
             firebase_connection.put('/' + name_of_db + '/users/' + sending_user + '/' + firebase_table_id, 'Facebook_post_id', str(facebook_post_object.post_id))
-    elif(platform_name == 'Twitter'):
+    if('twitterCheck' in social_media_list):
         twitter_post_object = twitter_post_analytics.twitter_post(post_description, post_title, media_type)
         if(twitter_post_object.media_type != None):
             twitter_post_object.media_file_list(media_files) #"media_files" must be in list format!
@@ -49,7 +50,7 @@ def publish_to_platform(firebase_table_id, sending_user, media_files, platform_n
         else:
             twitter_post_object.tweet_post_nomedia()
             firebase_connection.put('/' + name_of_db + '/users/' + sending_user + '/' + firebase_table_id, 'Twitter_post_id', str(twitter_post_object.post_status_id))
-    else:
+    if('instagramCheck' in social_media_list):
         instagram_post_object = insta_post.insta_post(post_title, post_description, media_type)
         instagram_post_object.get_media_ids(media_files) #media files must be file path
         instagram_post_object.publish_post()
