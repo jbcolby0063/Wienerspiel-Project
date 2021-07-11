@@ -1,10 +1,12 @@
 from flask import Flask, render_template
+import firebase
 import fb_post_analytics
 import insta_post
 import pyrebase
 from datetime import datetime
 import schedule
 import time
+import json
 
 firebaseConfig = {
   "apiKey": "AIzaSyChx8a649AVw7KwLA9_FMTmw_GaQdcYB7M",
@@ -41,19 +43,6 @@ for key,value in ig_views.items():
     ig_y.append(value)
 
 #Obtained fb_data and ig_data as list of x,y pairs
-
-
-app = Flask(__name__)
-
-@app.route("/analytics") #map url route to funtion
-def analytics():
-    """Returns data to plot on FacebookOverall.js and TotalViews.js"""
-    return {'engagement':fb_post_analytics.get_fb_weekly_page_views_total(),
-            'impressions':fb_post_analytics.get_fb_page_impressions_by_age_gender_unique(),
-            'fb_x_labels':fb_x, 'fb_y_labels':fb_y, 'ig_y_labels':ig_y}
-
-if __name__ == "__main__":
-    app.run()
 
 #Schedule code to update
 """ 
