@@ -2,7 +2,6 @@ from flask import Flask, render_template
 import firebase
 import fb_post_analytics
 import insta_post
-import pyrebase
 from datetime import datetime
 from firebase import firebase
 import schedule
