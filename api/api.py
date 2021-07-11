@@ -3,7 +3,6 @@ from flask import Flask, render_template
 from fbOverall import fb_post_analytics, fb_x, fb_y, ig_y
 import fb_post_analytics
 import insta_post
-import pyrebase
 from datetime import datetime
 import schedule
 import time
