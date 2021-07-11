@@ -4,17 +4,42 @@ import fb_post_analytics
 import insta_post
 import pyrebase
 from datetime import datetime
-from firebaseInfo import firebaseConfig
+from firebase import firebase
 import schedule
-import time
-import json
 
+firebasePost = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
+ig_data = {
+    datetime.today().strftime("%d-%m-%y"): insta_post.get_insta_account_reach_count(),
+}
+fb_data = {
+    datetime.today().strftime("%d-%m-%y"): fb_post_analytics.get_fb_daily_page_views_total()
+}
 
-firebase = pyrebase.initialize_app(firebaseConfig)
+def update_daily_views():
+    firebasePost.post('wienerspiel-5cbfd-default-rtdb/Facebook/totalViews', fb_data)
+    firebasePost.post('wienerspiel-5cbfd-default-rtdb/Instagram/totalViews', ig_data)
+
+firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
+fb_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/Facebook/totalViews', '')
+ig_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/Instagram/totalViews', '')
+
+fb_x = []
+fb_y = []
+ig_y = []
+
+for value in fb_get.values():
+    for key,val in value.items():
+        fb_x.append(key)
+        fb_y.append(val)
+
+for value in ig_get.values():
+    for val in value.values():
+        ig_y.append(val)
+""" firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
 def update_daily_views():
-    """Updates total Views for Instagram and Facebook Daily"""
+    #Updates total Views for Instagram and Facebook Daily
     db.child("Instagram").child("totalViews").update({datetime.today().strftime("%d-%m-%y"): insta_post.get_insta_account_reach_count()})
     db.child("Facebook").child("totalViews").update({datetime.today().strftime("%d-%m-%y"): fb_post_analytics.get_fb_daily_page_views_total()})
 
@@ -33,7 +58,7 @@ for key,value in fb_views.items():
 
 for key,value in ig_views.items(): 
     ig_y.append(value)
-
+ """
 #Obtained fb_data and ig_data as list of x,y pairs
 
 #Schedule code to update

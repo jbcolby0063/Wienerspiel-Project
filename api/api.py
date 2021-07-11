@@ -1,6 +1,6 @@
 # Flask API Project
 from flask import Flask, render_template
-from fbOverall import fb_post_analytics, fb_x, fb_y, ig_y, db
+from fbOverall import fb_post_analytics, fb_x, fb_y, ig_y
 import fb_post_analytics
 import insta_post
 import pyrebase
