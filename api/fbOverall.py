@@ -35,6 +35,9 @@ for value in fb_get.values():
 for value in ig_get.values():
     for val in value.values():
         ig_y.append(val)
+
+
+# No longer used
 """ firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
