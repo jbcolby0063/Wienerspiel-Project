@@ -50,7 +50,6 @@ DSC TAMU + Wienerspiel Project
 
 # Modules
 
-* pip install pyrebase
 * pip install python-firebase
 * pip install tweepy
 * python -m pip install flask
