@@ -15,15 +15,15 @@ follower_data = {
 }
 
 def update_react_count(): 
-    firebasePost.post('wienerspiel-5cbfd-default-rtdb/InstagramOverall/reachCount', reach_data)
-    firebasePost.post('wienerspiel-5cbfd-default-rtdb/InstagramOverall/followerCount', follower_data)
+    firebasePost.post('OverallAnalytics/InstagramOverall/reachCount', reach_data)
+    firebasePost.post('OverallAnalytics/InstagramOverall/followerCount', follower_data)
 
 update_react_count() #Call function to post reach data and follower data to Firebase
 
 #Retrieve data from Firebase
 firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
-reach_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/InstagramOverall/reachCount', '')
-follower_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/InstagramOverall/followerCount', '')
+reach_get = firebaseGet.get('OverallAnalytics/InstagramOverall/reachCount', '')
+follower_get = firebaseGet.get('OverallAnalytics/InstagramOverall/followerCount', '')
 
 #Create empty lists to store x-axis and y-values for graphing on Chart.js later
 reach_x = []

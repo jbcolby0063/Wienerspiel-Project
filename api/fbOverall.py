@@ -14,14 +14,14 @@ fb_data = {
 }
 
 def update_daily_views():
-    firebasePost.post('wienerspiel-5cbfd-default-rtdb/FacebookOverall/totalViews', fb_data)
-    firebasePost.post('wienerspiel-5cbfd-default-rtdb/InstagramOverall/totalViews', ig_data)
+    firebasePost.post('ViewsGraph/FacebookOverall/totalViews', fb_data)
+    firebasePost.post('ViewsGraph/InstagramOverall/totalViews', ig_data)
 
 update_daily_views()
 
 firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
-fb_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/FacebookOverall/totalViews', '')
-ig_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/InstagramOverall/totalViews', '')
+fb_get = firebaseGet.get('ViewsGraph/FacebookOverall/totalViews', '')
+ig_get = firebaseGet.get('ViewsGraph/InstagramOverall/totalViews', '')
 
 fb_x = []
 fb_y = []
