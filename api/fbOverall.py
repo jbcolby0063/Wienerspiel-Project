@@ -17,7 +17,7 @@ def update_daily_views():
     firebasePost.post('ViewsGraph/FacebookOverall/totalViews', fb_data)
     firebasePost.post('ViewsGraph/InstagramOverall/totalViews', ig_data)
 
-update_daily_views()
+#update_daily_views() #Call function to update daily views when needed
 
 firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
 fb_get = firebaseGet.get('ViewsGraph/FacebookOverall/totalViews', '')

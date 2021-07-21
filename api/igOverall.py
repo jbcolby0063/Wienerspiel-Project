@@ -18,7 +18,7 @@ def update_react_count():
     firebasePost.post('OverallAnalytics/InstagramOverall/reachCount', reach_data)
     firebasePost.post('OverallAnalytics/InstagramOverall/followerCount', follower_data)
 
-update_react_count() #Call function to post reach data and follower data to Firebase
+#update_react_count() #Call function to post reach data and follower data to Firebase
 
 #Retrieve data from Firebase
 firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
