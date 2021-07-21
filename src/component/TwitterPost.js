@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 
-export default function TwitterPost() {
+export default function TwitterPost({data}) {
     const [likes, setLikes] = useState("")
     const [views, setViews] = useState("")
     const [retweet, setRetweet] = useState("")

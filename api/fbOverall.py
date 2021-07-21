@@ -1,4 +1,3 @@
-from flask import Flask, render_template
 import firebase
 import fb_post_analytics
 import insta_post
@@ -34,6 +33,12 @@ for value in fb_get.values():
 for value in ig_get.values():
     for val in value.values():
         ig_y.append(val)
+
+if (len(fb_x) > 7):
+    count_delete = len(fb_x) - 7
+    del fb_x[:count_delete]
+    del fb_y[:count_delete]
+    del ig_y[:count_delete]
 
 
 # No longer used

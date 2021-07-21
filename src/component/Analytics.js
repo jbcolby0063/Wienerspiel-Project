@@ -32,8 +32,8 @@ export default function Analytics() {
     let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(15) + "VIEWERS"
 
     function postDetailVisible(data) {
-        setPostDetailData(data)
-        setModalShow(true)
+        setPostDetailData(data) // for each post, set postDetailData and pass into PostDetail.js below
+        setModalShow(true) // once true, 
     }
 
     useEffect(() => {
@@ -50,7 +50,7 @@ export default function Analytics() {
                     }
                     
                 })
-                getData.sort((a, b) => {
+                getData.sort((a, b) => { // sort the posts
                     if (a.time < b.time) return -1
                     if (a.time > b.time) return 1
                 })
@@ -61,15 +61,15 @@ export default function Analytics() {
 
         } else {
             const userID = currentUser.email.split("@")[0]
-            const postList = db.ref("users/" + userID)
+            const postList = db.ref("users/" + userID) // where posts are stored
         
             postList.on('value', (snapshot) => { // get all post data from realtime db
-                const data = snapshot.val()
-                const getData = []
+                const data = snapshot.val() // Array of firebase post data
+                const getData = [] // update with new array
                 for (let id in data) {
                     getData.push({ id, ...data[id] })
                 }
-                setDataList(getData)
+                setDataList(getData) // dataList stores ids of different posts
             })
         }
         
@@ -78,7 +78,7 @@ export default function Analytics() {
     return (
     <>
     <div>
-        {modalShow && <PostDetail data={postDetailData} show={modalShow} onHide={() => setModalShow(false)} />}
+        {modalShow && <PostDetail data={postDetailData} show={modalShow} onHide={() => setModalShow(false)} />} {/*if true, give post detail*/}
         <div className="d-flex flex-column" style={{height: "100vh"}}>
             <div ><Topbar /></div>
             <div className="page d-flex align-content-stretch" style={{flex: "1"}}>
@@ -124,7 +124,7 @@ export default function Analytics() {
                                     <div className="mt-3">
                                         <div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div>
                                     
-                                        {dataList ? dataList.map((data) => 
+                                        {dataList ? dataList.map((data) => // data can be any name, representing element in dataList array / 1 post
                                         <button type="button" className="postListButton overflow-auto" onClick={() => {postDetailVisible(data)}} style={postList}>
                                             <PostList data={data} />
                                         </button>) : ""}

@@ -21,13 +21,85 @@ export default function PostDetail({data, show, onHide}) {
     const viewerL = data.viewers
     const socialL = data.socialMedia
     const fileNameL = data.fileName
+
+    const [facebookInfo, setFacebookInfo] = useState([])
+    
+
+/*     const [fbDataL, setFbDataL] = useState([])
+    const [twitterDataL, setTwitterDataL] = useState([])
+    const [igDataL, setIgDataL] = useState([]) */
+
     const [fileL, setFileL] = useState([])
+
+    if (socialL.includes("facebookCheck")) {
+        setFacebookInfo(data.facebookInfo)
+    }
+/*     if (socialL.includes("instagramCheck")) {
+        const instagramInfo = data.instagramInfo
+    }
+    if (socialL.includes("twitterCheck")) {
+        const twitterInfo = data.twitterInfo
+    } */
+
     const [fileError, setFileError] = useState(false)
     const [fileLoading, setFileLoading] = useState(true)
     const [deleteShow, setDeleteShow] = useState(false)
     const [deleteError, setDeleteError] = useState(false)
     const { setPostDetailVisible, currentUser, currentAdmin } = useAuth()
 
+    /* function fbPostAnalytics() {
+        const userID = userL.split("@")[0]
+        const dbRef = db.ref("users/" + userID + "/" + data.id)
+        dbRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            const getData = []
+            for (let info in data) { // basically loops through image, caption type etc. until it sees Facebook
+                if (info == "facebook") {
+                    getData.push({ info, ...data[info] }) // will contain 
+                }
+            }
+            setFbDataL(getData)
+        });
+    }
+
+    function twitterPostAnalytics() {
+        const userID = userL.split("@")[0]
+        const dbRef = db.ref("users/" + userID + "/" + data.id + "/" + "twitter")
+        dbRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            const getData = []
+            for (let info in data) {
+                getData.push({ id, ...data[id] })
+            }
+            setTwitterDataL(getData)
+        });
+    }
+
+    function instagramPostAnalytics() {
+        const userID = userL.split("@")[0]
+        const dbRef = db.ref("users/" + userID + "/" + data.id + "/" + "instagram")
+        dbRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            const getData = []
+            for (let info in data) {
+                getData.push({ id, ...data[id] })
+            }
+            setIgDataL(getData)
+        });
+    }
+
+    function updatePostAnalytics() {
+        if (socialL.includes("facebookCheck")) {
+            instagramPostAnalytics();
+        };
+        if (socialL.includes("instagramCheck")) {
+            twitterPostAnalytics();
+        };
+        if (socialL.includes("twitterCheck")) {
+            instagramPostAnalytics();
+        }
+    }
+ */
     function cancelImage() {
         setPostDetailVisible(false)
     }
@@ -55,13 +127,13 @@ export default function PostDetail({data, show, onHide}) {
 
 
 
-    async function getImage() { // firebase image retrieve 
+    async function getImage() { // firebase image retrieve
         const userID = userL.split("@")[0]
-        const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL)
+        const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL) // actual image stored
         const imageURLList = []
         try {
             for(const file of fileNameL) { // async getDownloadURL for each image
-                await storageRef.child(file).getDownloadURL().then(function(url) {
+                await storageRef.child(file).getDownloadURL().then(function(url) { // change image into url
                     imageURLList.push(url)
                 })
             }
@@ -141,12 +213,12 @@ export default function PostDetail({data, show, onHide}) {
                                     <Tabs className="m-1">
                                         {socialL.includes("facebookCheck") && 
                                         <Tab eventKey="facebook" title="Facebook" className="overflow-auto ml-1 mr-1" style={{height: "400px"}}>
-                                            <FacebookPost />
+                                            <FacebookPost data={facebookInfo}/>
                                         </Tab>}
 
                                         {socialL.includes("instagramCheck") && 
                                         <Tab eventKey="instagram" title="Instagram" className="overflow-auto ml-1 mr-1" style={{height: "400px"}}>
-                                            <InstagramPost />
+                                            <InstagramPost/>
                                         </Tab>}
 
                                         {socialL.includes("twitterCheck") && 

@@ -1,28 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "..\\..\\..\\..\\Wienerspiel Project"
-		},
-		{
-			"path": "..\\..\\..\\..\\CSCE 121 Final Material"
-		},
-		{
-			"path": "..\\..\\..\\..\\exam"
-		},
-		{
-			"path": "..\\..\\..\\..\\JavaScript"
-		},
-		{
-			"path": "..\\..\\..\\..\\React"
-		},
-		{
-			"path": "..\\..\\..\\..\\WienerspielProject"
-		},
-		{
-			"path": "..\\..\\..\\..\\CodingMe\\DOM"
-		},
-		{
-			"path": "..\\..\\..\\..\\Hooks"
+			"path": "..\\..\\..\\..\\fbtest2"
 		},
 		{
 			"path": "..\\..\\..\\..\\facebook_analytics"
@@ -31,72 +10,38 @@
 			"path": "..\\..\\..\\..\\charttry"
 		},
 		{
-			"path": "..\\..\\..\\..\\facebook_analytics\\wienerspiel-sm-tool"
+			"path": "..\\..\\..\\..\\CodingMe\\fb_back_end\\wienerspiel-sm-tool"
 		},
 		{
-			"path": "..\\..\\..\\..\\fbwiener"
+			"path": "..\\..\\..\\..\\CodingMe\\fbtest2"
 		},
 		{
-			"path": "..\\..\\..\\..\\fb_front_end"
+			"path": "..\\..\\..\\..\\aws"
 		},
 		{
-			"path": "..\\..\\..\\..\\fbtest"
+			"path": "..\\..\\..\\..\\Twilio\\guess-the-word-main"
+		},
+		{
+			"path": "..\\..\\..\\..\\CodingMe"
+		},
+		{
+			"path": "..\\..\\..\\..\\CodingMe\\machineLearning"
+		},
+		{
+			"path": "..\\..\\..\\..\\react-flask-app"
+		},
+		{
+			"path": "..\\..\\..\\..\\copyApp"
+		},
+		{
+			"path": "..\\..\\..\\..\\front_end_test"
 		},
 		{
 			"path": "..\\..\\.."
+		},
+		{
+			"path": "..\\..\\..\\..\\Data_Drive\\Professional\\Summer Programs\\AI4ALL\\AICODE"
 		}
 	],
-	"settings": {
-		"files.associations": {
-			"fstream": "cpp",
-			"iosfwd": "cpp",
-			"xstring": "cpp",
-			"system_error": "cpp",
-			"algorithm": "cpp",
-			"atomic": "cpp",
-			"bit": "cpp",
-			"cctype": "cpp",
-			"clocale": "cpp",
-			"cmath": "cpp",
-			"compare": "cpp",
-			"concepts": "cpp",
-			"cstddef": "cpp",
-			"cstdint": "cpp",
-			"cstdio": "cpp",
-			"cstdlib": "cpp",
-			"cstring": "cpp",
-			"ctime": "cpp",
-			"cwchar": "cpp",
-			"deque": "cpp",
-			"exception": "cpp",
-			"initializer_list": "cpp",
-			"ios": "cpp",
-			"iostream": "cpp",
-			"istream": "cpp",
-			"iterator": "cpp",
-			"limits": "cpp",
-			"memory": "cpp",
-			"new": "cpp",
-			"ostream": "cpp",
-			"queue": "cpp",
-			"sstream": "cpp",
-			"stdexcept": "cpp",
-			"streambuf": "cpp",
-			"string": "cpp",
-			"tuple": "cpp",
-			"type_traits": "cpp",
-			"typeinfo": "cpp",
-			"utility": "cpp",
-			"vector": "cpp",
-			"xfacet": "cpp",
-			"xiosbase": "cpp",
-			"xlocale": "cpp",
-			"xlocinfo": "cpp",
-			"xlocnum": "cpp",
-			"xmemory": "cpp",
-			"xstddef": "cpp",
-			"xtr1common": "cpp",
-			"xutility": "cpp"
-		}
-	}
+	"settings": {}
 }

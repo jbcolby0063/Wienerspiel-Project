@@ -12,7 +12,7 @@ def get_post_information(firebase_table_id, sending_user):
     firebase_connection = firebase.FirebaseApplication(url, None)
     name_of_db = 'auth-development-3cb88-default-rtdb'
     post_information = firebase_connection.get('/' + name_of_db + '/users/' + sending_user + '/' + firebase_table_id, '')
-    return post_information
+    return post_information #will also contain post-specific analytics too
 
 
 def publish_to_platform(firebase_table_id, sending_user, media_files, platform_name):
