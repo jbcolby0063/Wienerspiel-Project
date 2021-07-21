@@ -68,7 +68,7 @@ export default function InstagramOverall() {
         maintainAspectRatio: false
     }
 
-    const percentageCompare = (reachData[4] - reachData[3]) / reachData[3] * 100
+    const percentageCompare = (reachData[reachData.length-1] - reachData[reachData.length-2]) / reachData[reachData.length-2] * 100
 
     useEffect(() => {
         fetch('/analytics').then(res => res.json()).then(data => {
