@@ -15,11 +15,11 @@ import ChangeAdminCode from "./ChangeAdminCode"
 import Analytics from "./Analytics"
 
 // https://getbootstrap.com/docs/4.1/utilities/flex/
+// Firebase admin sdk ---> Generate new private key
 // npm i bootstrap react-bootstrap 
 // npm install react-router-dom
 // npm i firebase
 // npm install firebase-admin --save
-// Firebase admin sdk ---> Generate new private key
 // npm install --save react-chartjs-2 chart.js
 
 function App() {

@@ -55,11 +55,11 @@ DSC TAMU + Wienerspiel Project
 * python -m pip install flask
 * pip install yarn
 * pip install python-dotenv
+* pip install schedule
+* pip install facebook-sdk
 * npm i bootstrap react-bootstrap 
 * npm install --save react-chartjs-2 chart.js
 * npm install react-router-dom
 * npm i firebase
-* pip install schedule
-* pip install facebook-sdk
-
+* npm install firebase-admin --save
 

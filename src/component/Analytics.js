@@ -50,9 +50,9 @@ export default function Analytics() {
                     }
                     
                 })
-                getData.sort((a, b) => { // sort the posts
-                    if (a.time < b.time) return -1
-                    if (a.time > b.time) return 1
+                getData.sort((a, b) => {
+                    if (a.uploadTimeID.split("_")[1] < b.uploadTimeID.split("_")[1]) return -1
+                    if (a.uploadTimeID.split("_")[1] > b.uploadTimeID.split("_")[1]) return 1
                 })
                 setDataList(getData)
                 
