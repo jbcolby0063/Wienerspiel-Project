@@ -77,36 +77,35 @@ class fb_post:
         # will retrieve post engagement statistics
         data_fb = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_impressions?fields=values', args=None, post_args=None, method='GET')
         list1 =data_fb['data']
-        list2 = list1[0]['values']
+        list2 = list1[0]['values'][0]
         return list2['value']
 
     def get_fb_post_engage_users(self):
         data_fb = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_engaged_users?fields=values', args=None, post_args=None, method='GET')
         list1 =data_fb['data']
-        list2 = list1[0]['values']
+        list2 = list1[0]['values'][0]
         return list2['value']
     
     def get_fb_post_reactions_by_type_total(self):
         reactions = dict()
-        reactions['num_likes'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_like_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
-        reactions['num_love'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_love_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
-        reactions['num_wow'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_wow_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
-        reactions['num_haha'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_haha_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
-        reactions['num_sorry'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_sorry_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
-        reactions['num_anger'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_anger_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
+        reactions['num_likes'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_like_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
+        reactions['num_love'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_love_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
+        reactions['num_wow'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_wow_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
+        reactions['num_haha'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_haha_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
+        reactions['num_sorry'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_sorry_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
+        reactions['num_anger'] = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_anger_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
         return reactions
     
     def get_fb_post_reactions_like_total(self):
-        num_likes = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_like_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
+        num_likes = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_reactions_like_total?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
         return num_likes
     
     def get_fb_post_video_avg_time_watched(self):
         if(self.media_type == 'VIDEO'):
-            num_vid_views = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_video_avg_time_watched?fields=values', args=None, post_args=None, method='GET')['data'][0]['values']['value']
+            num_vid_views = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_video_avg_time_watched?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
             return num_vid_views
         else:
             return None
-
 
 #page overall statistics
 def get_fb_page_post_engagements():

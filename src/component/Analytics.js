@@ -29,6 +29,7 @@ export default function Analytics() {
     const { currentUser, sidebarVisible, postDetailData, setPostDetailData, currentAdmin } = useAuth() // access directly to the values from the AuthContext.Provider 
     const [dataList, setDataList] = useState()
     const [modalShow, setModalShow] = useState(false)
+    const last2Weeks = Date.now() - 12096e5
     let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(15) + "VIEWERS"
 
     function postDetailVisible(data) {
@@ -37,41 +38,28 @@ export default function Analytics() {
     }
 
     useEffect(() => {
-        if (currentAdmin === "admin") {
-            const userRef = db.ref("users")
-            
-            userRef.on('value', (snapshot) => { // get all posts for admin
-                const getData = []
-                snapshot.forEach((childSnapShot) => {
-                    const data = childSnapShot.val()
-                    
-                    for (let id in data) {
-                        getData.push({ id, ...data[id] })
-                    }
-                    
-                })
-                getData.sort((a, b) => {
-                    if (a.uploadTimeID.split("_")[1] < b.uploadTimeID.split("_")[1]) return -1
-                    if (a.uploadTimeID.split("_")[1] > b.uploadTimeID.split("_")[1]) return 1
-                })
-                setDataList(getData)
-                
-            })
-            console.log(dataList)
+        const postList = db.ref("users") // where posts are stored
+    
+        postList.on('value', (snapshot) => { // get all post data from realtime db
+            const data = snapshot.val() // array of firebase post data
+            const getData = [] // update with new array
 
-        } else {
-            const userID = currentUser.email.split("@")[0]
-            const postList = db.ref("users/" + userID) // where posts are stored
-        
-            postList.on('value', (snapshot) => { // get all post data from realtime db
-                const data = snapshot.val() // Array of firebase post data
-                const getData = [] // update with new array
-                for (let id in data) {
-                    getData.push({ id, ...data[id] })
-                }
-                setDataList(getData) // dataList stores ids of different posts
+            for (let id in data) {
+                getData.push({ id, ...data[id] }) // dataList stores ids of different posts
+            }
+            getData.sort((a, b) => {
+                if (a.uploadTimeID.split("_")[1] < b.uploadTimeID.split("_")[1]) return -1
+                if (a.uploadTimeID.split("_")[1] > b.uploadTimeID.split("_")[1]) return 1
             })
-        }
+
+            
+            if(currentAdmin === "admin") {
+                setDataList(getData)
+            } else {
+                setDataList(getData.filter(da => (da.user === currentUser.email && da.uploadTimeID.split("_")[1] >= last2Weeks)))
+            }
+            
+        })
         
     }, [])
 
