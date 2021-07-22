@@ -7,6 +7,8 @@ export default function InstagramOverall() {
     const [genderData, setGenderData] = useState("")
     const [ageData, setAgeData] = useState("")
     const [reachDates, setReachDates] = useState([])
+    const [followerDates, setFollowerDates] = useState([])
+    const [followerData, setFollowerData] = useState([])
 
     const reachChart = {
         labels: reachDates,
@@ -22,11 +24,11 @@ export default function InstagramOverall() {
     }
 
     const followerChart = {
-        labels: ['Jun 19', 'Jun 20', 'Jun 21', 'Jun 22', 'Jun 23', 'Jun 24', 'Jun 25'],
+        labels: followerDates,
         datasets: [
           {
             label: 'Followers',
-            data: [10, 14, 20, 21, 29, 29, 29],
+            data: followerData,
             fill: true,
             borderColor: "rgba(138, 58, 185, 0.8)",
             backgroundColor: "rgba(138, 58, 185, 0.3)",
@@ -71,9 +73,11 @@ export default function InstagramOverall() {
     const percentageCompare = (reachData[reachData.length-1] - reachData[reachData.length-2]) / reachData[reachData.length-2] * 100
 
     useEffect(() => {
-        fetch('/analytics').then(res => res.json()).then(data => {
+        fetch('/analytics').then(res => res.json()).then(data => { // data is an object
             setReachDates(data.reach_x_labels)
             setReachData(data.reach_y_labels)
+            setFollowerDates(data.follower_x_labels)
+            setFollowerData(data.follower_y_labels)
         })
         setGenderData([25, 15])
         setAgeData([4, 10, 15, 16, 10, 7, 4])

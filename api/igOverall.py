@@ -11,7 +11,7 @@ reach_data = {
 }
 
 follower_data = {
-    datetime.today().strftime("%d-%m"): insta_post.get_insta_account_follower_count()
+    datetime.today().strftime("%d-%m"): 5 #insta_post.get_insta_account_follower_count()
 }
 
 def update_react_count(): 
@@ -41,10 +41,16 @@ if (len(reach_x) > 7):
     del reach_x[:count_delete]
     del reach_y[:count_delete]
 
-""" for value in follower_get.values():
+for value in follower_get.values():
     for key,val in value.items():
         follower_x.append(key)
-        follower_y.append(val) """
+        follower_y.append(val)
+
+if (len(follower_x) > 7):
+    count_delete = len(follower_x) - 7
+    del follower_x[:count_delete]
+    del follower_y[:count_delete]
+
 
 
 
