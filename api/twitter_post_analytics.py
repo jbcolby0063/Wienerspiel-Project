@@ -123,25 +123,22 @@ class twitter_post:
         entitiles_dict = self.api.get_status(self.post_status_id).entities
         return entitiles_dict['hashtags'] #returns a list of dictionaries with the hashtags!!
         
-'''
-def main():
-    - plan to test the code out tomorrow and see what issues there may be
-    - make sure that media works properly FIRST
-    - check that one can send tweets without posting
-    post_description = 'post test 4!' + '#testAccount' + " " + '#helloworldpython'
-    #media_for_post = ['pexels-linda-ellershein-1749900.jpeg', 'highway-wallpapers-15.jpeg']
-    media_2 = ['2_Second_Video.mp4']
-    post_title = 'Test1'
-    tweet1 = twitter_post(post_description, post_title, 'VIDEO')
-    tweet1.media_file_list(media_2)
-    print(tweet1.post_media)
-    tweet1.tweet_post_media()
-    #print('test:',tweet1.video_views_counter())
-    print('id:',tweet1.post_status_id)
-    print(tweet1.tweet_hashtags())
-    #print('impression_counter:', tweet1.impression_counter(tweet1.post_status_id))
+
+# def main():
+#     post_description = 'post test 4!' + '#testAccount' + " " + '#helloworldpython'
+#     #media_for_post = ['pexels-linda-ellershein-1749900.jpeg', 'highway-wallpapers-15.jpeg']
+#     media_2 = ['C:\fakepath\evening.jpeg']
+#     post_title = 'Test1'
+#     tweet1 = twitter_post(post_description, post_title, 'VIDEO')
+#     tweet1.media_file_list(media_2)
+#     print(tweet1.post_media)
+#     tweet1.tweet_post_media()
+#     #print('test:',tweet1.video_views_counter())
+#     print('id:',tweet1.post_status_id)
+#     print(tweet1.tweet_hashtags())
+#     #print('impression_counter:', tweet1.impression_counter(tweet1.post_status_id))
 
 
-if __name__ == "__main__":
-    main()
-'''
+# if __name__ == "__main__":
+#     main()
+

@@ -22,6 +22,7 @@ export default function PostPage() {
     const [fileType, setFileType] = useState("")
     const [uploadFile, setUploadFile] = useState([])
     const [previewFile, setPreviewFile] = useState([])
+    const [base64File, setBase64File] = useState([])
     const [error, setError] = useState(false)
     const [imageError, setImageError] = useState(false)
     const [instagramError, setInstagramError] = useState(false)
@@ -29,24 +30,33 @@ export default function PostPage() {
     const [socialList, setSocialList] = useState([])
     const { sidebarVisible, currentUser } = useAuth()
     const history = useHistory()
+    
 
     function handleFile(e) { // convert image/video files into image url
         if (e.target.files[0]) {
-            const currenFiles = [...uploadFile, e.target.files[0]]
+            if(e.target.files[0].type.split("/")[0] !== fileType){
+                var currentFiles = [e.target.files[0]]
+            } else {
+                var currentFiles = [...uploadFile, e.target.files[0]]
+            }
+            
             const currentPreviewFiles = []
-
-            setUploadFile(currenFiles)
+            
+            setUploadFile(currentFiles)
             setFileType(e.target.files[0].type.split("/")[0])
-            for (let i = 0; i < currenFiles.length; i++) {
-                currentPreviewFiles.push(URL.createObjectURL(currenFiles[i]))
+            for (let i = 0; i < currentFiles.length; i++) {
+                currentPreviewFiles.push(URL.createObjectURL(currentFiles[i])) // preview files path
             }
             setPreviewFile(currentPreviewFiles)
+
         }
+        
     }
 
     function cancelImage() { // remove image/video
         setUploadFile([])
         setPreviewFile([])
+        setBase64File([])
         setFileType("")
         document.getElementById("upload-image").value = ""
     }
@@ -62,24 +72,23 @@ export default function PostPage() {
     }
 
     function handleStorage() { // firebase image/video storage 
-        const userID = currentUser.email.split("@")[0]
         const uploadTimeID = titleRef.current.value + "_" + timeID
-        const storageRef = storage.ref("users/" + userID + "/" + uploadTimeID)
+        const storageRef = storage.ref("users/" + uploadTimeID)
         return storageRef
     }
 
     function handleDB() { // firebase database
-        const userID = currentUser.email.split("@")[0]
-        const postRef = db.ref("users/" + userID) // data store path
-        const fileList = []
+        const postRef = db.ref("users") // data store path
+        const fileNameList = []
         for (let i = 0; i < uploadFile.length; i++) {
-            fileList.push(uploadFile[i].name)
+            fileNameList.push(uploadFile[i].name)
         }
         const postData = { // data to store in firebase
             user: currentUser.email,
             title: titleRef.current.value,
             text: textRef.current.value,
-            fileName: fileList,
+            fileName: fileNameList,
+            filePath: base64File,
             fileType: fileType,
             time: new Date().toLocaleString(),
             uploadTimeID: titleRef.current.value + "_" + timeID,

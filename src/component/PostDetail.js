@@ -21,6 +21,7 @@ export default function PostDetail({data, show, onHide}) {
     const viewerL = data.viewers
     const socialL = data.socialMedia
     const fileNameL = data.fileName
+    const filePathL = data.filePath
     const [fileL, setFileL] = useState([])
     const [fileError, setFileError] = useState(false)
     const [fileLoading, setFileLoading] = useState(true)
@@ -33,9 +34,8 @@ export default function PostDetail({data, show, onHide}) {
     }
 
     async function deletePost() { // delete post data from firebase
-        const userID = userL.split("@")[0]
-        const dbRef = db.ref("users/" + userID).child(data.id)
-        const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL)
+        const dbRef = db.ref("users").child(idL)
+        const storageRef = storage.ref("users/" + uploadTimeIDL)
 
         try {
             setDeleteError(false)
@@ -56,8 +56,7 @@ export default function PostDetail({data, show, onHide}) {
 
 
     async function getImage() { // firebase image retrieve 
-        const userID = userL.split("@")[0]
-        const storageRef = storage.ref("users/" + userID + "/" + uploadTimeIDL)
+        const storageRef = storage.ref("users/" + uploadTimeIDL)
         const imageURLList = []
         try {
             for(const file of fileNameL) { // async getDownloadURL for each image
