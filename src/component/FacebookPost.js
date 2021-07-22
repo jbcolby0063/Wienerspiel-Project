@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { Doughnut } from 'react-chartjs-2'
 
-export default function FacebookPost() {
+export default function FacebookPost({data}) {
     const [likes, setLikes] = useState("")
     const [views, setViews] = useState("")
     const [engagedUsers, setEngagedUsers] = useState("")
@@ -33,14 +33,15 @@ export default function FacebookPost() {
     }
 
     useEffect(() => {
-        setLikes(5)
-        setViews(20)
-        setEngagedUsers(15)
+        setLikes(data.likes)
+        setViews(data.views)
+        setEngagedUsers(data.engagedUsers)
         setReactionsData([5 ,1, 1, 4, 2, 6])
     }, [])
 
     return (
         <div>
+            {/* <h1>{data.likes}</h1> */}
             <ListGroup>
                 <ListGroup.Item>
                     <div style={{color: "#898989"}}>Views</div>

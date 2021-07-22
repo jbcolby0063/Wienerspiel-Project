@@ -6,9 +6,10 @@ export default function InstagramOverall() {
     const [reachData, setReachData] = useState("")
     const [genderData, setGenderData] = useState("")
     const [ageData, setAgeData] = useState("")
+    const [reachDates, setReachDates] = useState([])
 
     const reachChart = {
-        labels: ['Jun 14', 'Jun 21', 'Jun 28', 'Jul 5', 'Jul 12'],
+        labels: reachDates,
         datasets: [
             {
                 label: 'Accounts Reached (Weekly)',
@@ -67,10 +68,13 @@ export default function InstagramOverall() {
         maintainAspectRatio: false
     }
 
-    const percentageCompare = (reachData[4] - reachData[3]) / reachData[3] * 100
+    const percentageCompare = (reachData[reachData.length-1] - reachData[reachData.length-2]) / reachData[reachData.length-2] * 100
 
     useEffect(() => {
-        setReachData([10, 13, 15, 20, 12])
+        fetch('/analytics').then(res => res.json()).then(data => {
+            setReachDates(data.reach_x_labels)
+            setReachData(data.reach_y_labels)
+        })
         setGenderData([25, 15])
         setAgeData([4, 10, 15, 16, 10, 7, 4])
     }, [])

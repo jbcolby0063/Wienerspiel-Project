@@ -33,25 +33,26 @@ export default function Analytics() {
     let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(15) + "VIEWERS"
 
     function postDetailVisible(data) {
-        setPostDetailData(data)
-        setModalShow(true)
+        setPostDetailData(data) // for each post, set postDetailData and pass into PostDetail.js below
+        setModalShow(true) // once true, 
     }
 
     useEffect(() => {
-        const postList = db.ref("users")
+        const postList = db.ref("users") // where posts are stored
     
         postList.on('value', (snapshot) => { // get all post data from realtime db
-            const data = snapshot.val()
-            const getData = []
+            const data = snapshot.val() // array of firebase post data
+            const getData = [] // update with new array
 
             for (let id in data) {
-                getData.push({ id, ...data[id] })
+                getData.push({ id, ...data[id] }) // dataList stores ids of different posts
             }
             getData.sort((a, b) => {
                 if (a.uploadTimeID.split("_")[1] < b.uploadTimeID.split("_")[1]) return -1
                 if (a.uploadTimeID.split("_")[1] > b.uploadTimeID.split("_")[1]) return 1
             })
 
+            
             if(currentAdmin === "admin") {
                 setDataList(getData)
             } else {
@@ -65,7 +66,7 @@ export default function Analytics() {
     return (
     <>
     <div>
-        {modalShow && <PostDetail data={postDetailData} show={modalShow} onHide={() => setModalShow(false)} />}
+        {modalShow && <PostDetail data={postDetailData} show={modalShow} onHide={() => setModalShow(false)} />} {/*if true, give post detail*/}
         <div className="d-flex flex-column" style={{height: "100vh"}}>
             <div ><Topbar /></div>
             <div className="page d-flex align-content-stretch" style={{flex: "1"}}>
@@ -111,7 +112,7 @@ export default function Analytics() {
                                     <div className="mt-3">
                                         <div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div>
                                     
-                                        {dataList ? dataList.map((data) => 
+                                        {dataList ? dataList.map((data) => // data can be any name, representing element in dataList array / 1 post
                                         <button type="button" className="postListButton overflow-auto" onClick={() => {postDetailVisible(data)}} style={postList}>
                                             <PostList data={data} />
                                         </button>) : ""}

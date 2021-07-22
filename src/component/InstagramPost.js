@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 
-export default function InstagramPost() {
+export default function InstagramPost({data}) {
     const [likes, setLikes] = useState("")
     const [views, setViews] = useState("")
     const [reach, setReach] = useState("")

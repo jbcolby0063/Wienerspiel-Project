@@ -1,4 +1,3 @@
-from flask import Flask, render_template
 import firebase
 import fb_post_analytics
 import insta_post
@@ -15,12 +14,14 @@ fb_data = {
 }
 
 def update_daily_views():
-    firebasePost.post('wienerspiel-5cbfd-default-rtdb/Facebook/totalViews', fb_data)
-    firebasePost.post('wienerspiel-5cbfd-default-rtdb/Instagram/totalViews', ig_data)
+    firebasePost.post('ViewsGraph/FacebookOverall/totalViews', fb_data)
+    firebasePost.post('ViewsGraph/InstagramOverall/totalViews', ig_data)
+
+#update_daily_views() #Call function to update daily views when needed
 
 firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
-fb_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/Facebook/totalViews', '')
-ig_get = firebaseGet.get('/wienerspiel-5cbfd-default-rtdb/Instagram/totalViews', '')
+fb_get = firebaseGet.get('ViewsGraph/FacebookOverall/totalViews', '')
+ig_get = firebaseGet.get('ViewsGraph/InstagramOverall/totalViews', '')
 
 fb_x = []
 fb_y = []
@@ -34,6 +35,12 @@ for value in fb_get.values():
 for value in ig_get.values():
     for val in value.values():
         ig_y.append(val)
+
+if (len(fb_x) > 7):
+    count_delete = len(fb_x) - 7
+    del fb_x[:count_delete]
+    del fb_y[:count_delete]
+    del ig_y[:count_delete]
 
 
 # No longer used
