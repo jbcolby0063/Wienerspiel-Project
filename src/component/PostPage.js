@@ -90,7 +90,7 @@ export default function PostPage() {
             fileName: fileNameList,
             filePath: base64File,
             fileType: fileType,
-            time: new Date().toLocaleString(),
+            time: new Date().toLocaleString('en-US'),
             uploadTimeID: titleRef.current.value + "_" + timeID,
             socialMedia: socialList,
             viewers : 0

@@ -6,7 +6,7 @@ import "../App.css"
 
 export default function PostList({data}) {
     const titleL = data.title.substring(0, 10).padEnd(15)
-    const dateL = data.time.split(' ')[0] + data.time.split(' ')[1] + data.time.split(' ')[2]
+    const dateL = data.time.split(',')[0]
     const dataL = titleL + dateL.padEnd(15)
     const socialL = data.socialMedia
     const viewerL = data.viewers
