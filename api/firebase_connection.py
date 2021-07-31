@@ -1,4 +1,6 @@
+#connecting to firebase
 from firebase import firebase
+import pyrebase
 import insta_post
 import twitter_post_analytics
 import fb_post_analytics
@@ -13,8 +15,31 @@ def get_post_information(firebase_table_id):
     post_information = firebase_connection.get('/users/' + firebase_table_id, '')
     return post_information #will also contain post-specific analytics too
 
+def get_media_url(uploadTimeID):
+    config = { #need the api keys for pyrebase
+    "apiKey": "apiKey",
+    "authDomain": "projectId.firebaseapp.com",
+    "databaseURL": "https://wienerspiel-5cbfd-default-rtdb.firebaseio.com",
+    "storageBucket": "projectId.appspot.com",
+    "serviceAccount": "path/to/serviceAccountCredentials.json"
+    }
+    firebase_connection = pyrebase.initialize_app(config)
+    storage = firebase_connection.storage()
+    list_of_media_files = storage.child("users/"+ str(uploadTimeID)).list_files() #need the path in firebase storage
+    urls_media_files = []
+    for x in list_of_media_files:
+        url = storage.child("users/"+ str(uploadTimeID) + '/' +str(x)).get_url()
+        urls_media_files.append(url)
+    
+    return urls_media_files
 
-def publish_to_platform(firebase_table_id, media_files, platform_name):
+
+def get_fb_table_ids(): #gets the list of firebase table ids
+    url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/'
+    firebase_connection = firebase.FirebaseApplication(url, None)
+    firebase_table_id = list(firebase_connection.get('/wienerspiel-5cbfd-default-rtdb/users', '').keys())[0]
+
+def publish_to_platform():
     '''
     will publish information to the appropriate platforms
     will return the post id for each platform in the form of an dictionary object
@@ -22,15 +47,18 @@ def publish_to_platform(firebase_table_id, media_files, platform_name):
     '''
     url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
+    firebase_table_id = list(firebase_connection.get('/wienerspiel-5cbfd-default-rtdb/users', '').keys())[0]
     post_information = get_post_information(firebase_table_id)
     post_title = post_information['title']
     post_description = post_information['text']
     media_type = post_information['fileType']
     social_media_list = post_information['socialMedia']
+    timeid = post_information['uploadTimeID']
+    media_files = get_media_url(timeid)
     if('facebookCheck' in social_media_list):
         facebook_post_object = fb_post_analytics.fb_post(post_title, post_description, media_type)
         if(facebook_post_object.media_type == 'video'):
-            video_url = media_files[0] #will get the media file (should not be in list format). Must also be a url not file path
+            video_url = media_files[0]
             facebook_post_object.post_media_video(video_url)
             firebase_connection.put('/users/' + firebase_table_id, 'Facebook_post_id', str(facebook_post_object.post_id))
         elif(facebook_post_object.media_type == 'image'):
@@ -124,9 +152,7 @@ def get_insta_post_analytics(name_of_metric, firebase_table_id):
     elif(name_of_metric == 'likeCount'):
         return instagram_post_object.like_counter()
     else:
-        return instagram_post_object.reach_counter()
-
-#For TESTING Purposes
+        return instagram_post_object.reach_counter()#For TESTING Purposes
 
 '''
 url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/' #this is the url for the firebase database
