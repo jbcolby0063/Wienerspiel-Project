@@ -29,12 +29,25 @@ class twitter_post:
     
     def tweet_post_media(self):
         #allows user to send multiple media files
-        if(len(self.post_media) >= 1):
-            self.media_id = []
-            for x in self.post_media:
-                media_obj = self.api.media_upload(x)
-                print(media_obj.media_id)
-                self.media_id.append(media_obj.media_id_string)
+        self.media_id = []
+        for x in self.post_media:
+            if(self.media_type == 'IMAGE'):
+                file_name = x.split('/')[-1]
+                res = requests.get(x)
+                media = io.BytesIO(res.content)
+                ftype = io.BufferedReader(media)
+                response = self.api.simple_upload(file_name, file=ftype)
+                self.media_id.append(response.media_id_string)
+            else: #issue with posting videos!!!
+                file_name = x.split('/')[-1]
+                res = requests.get(x)
+                media = io.BytesIO(res.content)
+                ftype = io.BufferedReader(media)
+                time.sleep(30)
+                print(type(ftype))
+                response = self.api.chunked_upload(file_name, file=ftype)
+                self.media_id.append(response.media_id_string)
+        
         status_tweet = self.api.update_status(self.post_description, media_ids = self.media_id)
         self.post_status_id = status_tweet.id
         return status_tweet
