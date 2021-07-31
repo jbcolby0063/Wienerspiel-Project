@@ -2,6 +2,10 @@ import facebook
 import requests
 import os
 import time
+from PIL import Image
+import requests
+import io
+
 
 
 #create method to update access token!!
@@ -26,7 +30,7 @@ class fb_post:
         self.post_id = post_facebook['id']
         return post_facebook
     
-    def post_media_photo(self, media_list): #if the file type is photos
+    def post_media_photo(self, media_list): #if the file type is photos <-- need to update in order to use base64 files
         #posting with media attached
 
         #inputting media list
@@ -38,9 +42,10 @@ class fb_post:
         #allows for one to post multiple photos
         imgs_id = []
         for img in self.media_info:
-            photo = open(img, "rb")
-            imgs_id.append(self.graph_api_fb.put_photo(photo, album_id='me/photos',published=False)['id'])
-            photo.close()
+            res = requests.get(img)
+            media = io.BytesIO(res.content)
+            ftype = io.BufferedReader(media)
+            imgs_id.append(self.graph_api_fb.put_photo(ftype, album_id='me/photos',published=False)['id'])
 
         args=dict()
         args["message"]= self.post_description
@@ -107,6 +112,7 @@ class fb_post:
         else:
             return None
 
+
 #page overall statistics
 def get_fb_page_post_engagements():
     access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
@@ -137,7 +143,6 @@ def get_fb_page_fans_online_per_day(): #need to check metric : provides no infor
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_fans_online_per_day/week?fields=values', args=None, post_args=None, method='GET')['data']
     return page_engagement
-
 
 '''
 # for testing purposes ONLY
