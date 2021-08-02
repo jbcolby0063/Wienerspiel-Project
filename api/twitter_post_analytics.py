@@ -38,15 +38,21 @@ class twitter_post:
                 ftype = io.BufferedReader(media)
                 response = self.api.simple_upload(file_name, file=ftype)
                 self.media_id.append(response.media_id_string)
-            else: #issue with posting videos!!!
+            else: 
                 file_name = x.split('/')[-1]
+                print('filename:', file_name)
+                media_category = 'TweetVideo'
                 res = requests.get(x)
                 media = io.BytesIO(res.content)
                 ftype = io.BufferedReader(media)
-                time.sleep(30)
                 print(type(ftype))
-                response = self.api.chunked_upload(file_name, file=ftype)
+                response = self.api.media_upload(file_name, file=ftype, chunked=True, media_category= media_category)
+                print(response)
                 self.media_id.append(response.media_id_string)
+        
+        status_tweet = self.api.update_status(self.post_description, media_ids = self.media_id)
+        self.post_status_id = status_tweet.id
+        return status_tweet
         
         status_tweet = self.api.update_status(self.post_description, media_ids = self.media_id)
         self.post_status_id = status_tweet.id
