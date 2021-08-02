@@ -5,6 +5,8 @@ import insta_post
 import twitter_post_analytics
 import fb_post_analytics
 
+
+#Connects to Firebase for Posting
 def get_post_information(firebase_table_id):
     '''
     This function will get the information for the firebase database
@@ -82,7 +84,7 @@ def publish_to_platform():
         instagram_post_object.publish_post()
         firebase_connection.put('/users/' + firebase_table_id, 'Instagram_post_id', str(instagram_post_object.post_status_id))
 
-
+#Connects to Firebase in order to retrieve post specific analytics
 def get_fb_post_analytics(name_of_metric, firebase_table_id):
     #will get the post id and then run the specific function based on metric wanted
     post_info = get_post_information(firebase_table_id)
