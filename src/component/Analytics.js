@@ -29,13 +29,27 @@ export default function Analytics() {
     const { currentUser, sidebarVisible, postDetailData, setPostDetailData, currentAdmin } = useAuth() // access directly to the values from the AuthContext.Provider 
     const [dataList, setDataList] = useState()
     const [modalShow, setModalShow] = useState(false)
+    const [individualPostAnalytics, setIndividualPostAnalytics] = useState({})
+    const [analyticsData, setAnalyticsData] = useState({})
+    
+    
+    /* {'post1_1627856581476': {'postImpressions': 5, 'engagedUsers': 6, 'reactionsByType': 7, 'reactionLikes': 8, 'retweetCount': 9, 'twitterLikeCount': 10, 'replyCount': 11, 'twitterViews': 12, 'hashtags': ['#abc',
+    '#bcd'], 'instagramViews': 13, 'commentCount': 14, 'instagramLikeCount': 15, 'accountReach': 16}, 'hey_1627928281964': {'postImpressions': 10, 'engagedUsers': 12, 'reactionsByType': 7, 'reactionLikes': 8, 'retweetCount': 9, 
+    'twitterLikeCount': 10, 'replyCount': 11, 'twitterViews': 12, 'hashtags': ['#abc', '#bcd'], 'instagramViews': 13, 'commentCount': 14, 'instagramLikeCount': 15, 'accountReach': 16}} */
+    //#fetch('/analytics').then(res => res.json()).then(data => data.post_analytics) //Retrieves dict-of-dicts from back-end
+
     const last2Weeks = Date.now() - 12096e5
     let data_string = "TITLE".padEnd(15) + "DATE".padEnd(15) + "SOCIAL MEDIA".padEnd(15) + "VIEWERS"
 
-    function postDetailVisible(data) {
-        setPostDetailData(data) // for each post, set postDetailData and pass into PostDetail.js below
-        setModalShow(true) // once true, 
+    function postDetailVisible(data1, data2) {
+        setPostDetailData(data1) // for each post, set postDetailData and pass into PostDetail.js below
+        setIndividualPostAnalytics(data2)
+        setModalShow(true) // once true, yarn 
     }
+
+    const x = fetch('/analytics').then(res => res.json()).then(data => {
+        setAnalyticsData(data.post_analytics)
+    })
 
     useEffect(() => {
         const postList = db.ref("users") // where posts are stored
@@ -60,13 +74,13 @@ export default function Analytics() {
             }
             
         })
-        
+
     }, [])
 
     return (
     <>
     <div>
-        {modalShow && <PostDetail data={postDetailData} show={modalShow} onHide={() => setModalShow(false)} />} {/*if true, give post detail*/}
+        {modalShow && <PostDetail data={postDetailData} postData = {individualPostAnalytics} show={modalShow} onHide={() => setModalShow(false)} />} {/*if true, give post detail*/}
         <div className="d-flex flex-column" style={{height: "100vh"}}>
             <div ><Topbar /></div>
             <div className="page d-flex align-content-stretch" style={{flex: "1"}}>
@@ -111,13 +125,11 @@ export default function Analytics() {
                                 <Card.Text>
                                     <div className="mt-3">
                                         <div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div>
-                                    
                                         {dataList ? dataList.map((data) => // data can be any name, representing element in dataList array / 1 post
-                                        <button type="button" className="postListButton overflow-auto" onClick={() => {postDetailVisible(data)}} style={postList}>
+                                        <button type="button" className="postListButton overflow-auto" onClick={() => {postDetailVisible(data, analyticsData[data.uploadTimeID])}} style={postList}>
                                             <PostList data={data} />
                                         </button>) : ""}
                                     </div>
-                                    
                                 </Card.Text>
                             </Card.Body>
                         </Card>

@@ -10,7 +10,7 @@ import {ReactComponent as PostDetailLogo} from '../postDetailLogo.svg'
 import {ReactComponent as DeleteLogo} from '../deleteLogo.svg'
 
 
-export default function PostDetail({data, show, onHide}) {
+export default function PostDetail({data, postData, show, onHide}) {
     const idL = data.id
     const userL = data.user
     const titleL = data.title
@@ -29,7 +29,11 @@ export default function PostDetail({data, show, onHide}) {
     const [deleteError, setDeleteError] = useState(false)
     const { setPostDetailVisible, currentUser, currentAdmin } = useAuth()
 
-    const [facebookInfo, setFacebookInfo] = useState([])
+    /*
+    Perform useEffect to retrieve list
+    map elements in list to 
+    */
+
     // const [fbDataL, setFbDataL] = useState([])
     // const [twitterDataL, setTwitterDataL] = useState([])
     // const [igDataL, setIgDataL] = useState([]) 
@@ -208,17 +212,17 @@ export default function PostDetail({data, show, onHide}) {
                                     <Tabs className="m-1">
                                         {socialL.includes("facebookCheck") && 
                                         <Tab eventKey="facebook" title="Facebook" className="overflow-auto ml-1 mr-1" style={{height: "400px"}}>
-                                            <FacebookPost data={facebookInfo}/>
+                                            <FacebookPost data={postData}/>
                                         </Tab>}
 
                                         {socialL.includes("instagramCheck") && 
                                         <Tab eventKey="instagram" title="Instagram" className="overflow-auto ml-1 mr-1" style={{height: "400px"}}>
-                                            <InstagramPost/>
+                                            <InstagramPost data={postData}/>
                                         </Tab>}
 
                                         {socialL.includes("twitterCheck") && 
                                         <Tab eventKey="twitter" title="Twitter" className="overflow-auto ml-1 mr-1" style={{height: "400px"}}>
-                                            <TwitterPost />
+                                            <TwitterPost data={postData}/>
                                         </Tab>}
                                     </Tabs>
                                     </div>

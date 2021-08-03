@@ -1,6 +1,7 @@
 #connecting to firebase
 from firebase import firebase
 import pyrebase
+from requests.api import get
 import insta_post
 import twitter_post_analytics
 import fb_post_analytics
@@ -17,27 +18,27 @@ def get_post_information(firebase_table_id):
 
 def get_media_url(uploadTimeID):
     config = { #need the api keys for pyrebase
-    "apiKey": "apiKey",
-    "authDomain": "projectId.firebaseapp.com",
+    "apiKey": "AIzaSyChx8a649AVw7KwLA9_FMTmw_GaQdcYB7M",
+    "authDomain": "wienerspiel-5cbfd.firebaseapp.com",
     "databaseURL": "https://wienerspiel-5cbfd-default-rtdb.firebaseio.com",
-    "storageBucket": "projectId.appspot.com",
-    "serviceAccount": "path/to/serviceAccountCredentials.json"
+    "storageBucket": "wienerspiel-5cbfd.appspot.com",
+    "serviceAccount": "serviceAccountKey.json"
     }
     firebase_connection = pyrebase.initialize_app(config)
     storage = firebase_connection.storage()
     list_of_media_files = storage.child("users/"+ str(uploadTimeID)).list_files() #need the path in firebase storage
     urls_media_files = []
     for x in list_of_media_files:
-        url = storage.child("users/"+ str(uploadTimeID) + '/' +str(x)).get_url()
+        url = storage.child("users/"+ str(uploadTimeID) + '/' +str(x)).get_url(None)
         urls_media_files.append(url)
-    
     return urls_media_files
 
 
 def get_fb_table_ids(): #gets the list of firebase table ids
     url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
-    firebase_table_id = list(firebase_connection.get('/wienerspiel-5cbfd-default-rtdb/users', '').keys())[0]
+    firebase_table_id = list(firebase_connection.get('users/', '').keys())
+    return firebase_table_id
 
 def publish_to_platform():
     '''
@@ -47,7 +48,7 @@ def publish_to_platform():
     '''
     url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
-    firebase_table_id = list(firebase_connection.get('/wienerspiel-5cbfd-default-rtdb/users', '').keys())[0]
+    firebase_table_id = list(firebase_connection.get('users/', '').keys())[1]
     post_information = get_post_information(firebase_table_id)
     post_title = post_information['title']
     post_description = post_information['text']
@@ -89,9 +90,9 @@ def get_fb_post_analytics(name_of_metric, firebase_table_id):
     post_title = post_info['title']
     post_description = post_info['text']
     media_type = ' ' #will need to store the media type on firebase!!
-    post_id_fb = post_info['Facebook_post_id']
+    #post_id_fb = post_info['Facebook_post_id']
     facebook_post_object = fb_post_analytics.fb_post(post_title, post_description, media_type)
-    facebook_post_object.set_fb_post_id(post_id_fb)
+   # facebook_post_object.set_fb_post_id(post_id_fb)
     facebook_post_object.set_fb_media_type(media_type)
     if(name_of_metric == 'postImpressions'):
         return facebook_post_object.get_fb_post_impressions()
@@ -110,9 +111,9 @@ def get_twitter_post_analytics(name_of_metric, firebase_table_id):
     post_title = post_info['title']
     post_description = post_info['text']
     media_type = ' ' #will need to store the media type on firebase!!
-    post_id_fb = post_info['Twitter_post_id']
+    #post_id_fb = post_info['Twitter_post_id']
     twitter_post_object = twitter_post_analytics.twitter_post(post_description, post_title, media_type)
-    twitter_post_object.set_twitter_post_id(post_id_fb)
+    #twitter_post_object.set_twitter_post_id(post_id_fb)
     twitter_post_object.set_twitter_media_type(media_type)
     
     if(name_of_metric == 'retweetCount'):
@@ -140,9 +141,9 @@ def get_insta_post_analytics(name_of_metric, firebase_table_id):
     post_title = post_info['title']
     post_description = post_info['text']
     media_type = ' ' #will need to store the media type on firebase!!
-    post_id_fb = post_info['Instagram_post_id']
+    #post_id_fb = post_info['Instagram_post_id']
     instagram_post_object = insta_post.insta_post(post_title, post_description, media_type)
-    instagram_post_object.set_insta_post_id(post_id_fb)
+    #instagram_post_object.set_insta_post_id(post_id_fb)
     instagram_post_object.set_insta_media_type(media_type)
 
     if(name_of_metric == 'impressionCount'):
@@ -154,22 +155,65 @@ def get_insta_post_analytics(name_of_metric, firebase_table_id):
     else:
         return instagram_post_object.reach_counter()#For TESTING Purposes
 
+
+#Create list to store dictionary elements
+def post_specific_analytics_list_creator():
+    """Returns dictionary of dictionaries, where key is uploadtimeID, and value is a dictionary element with all 13 post analytics data as key-value pairs"""
+    postAnalyticsDict = dict()
+    tableIds = get_fb_table_ids()
+    for i in range(len(tableIds)):
+        x = dict()
+        post_information = get_post_information(tableIds[i])
+        social_media_list = post_information['socialMedia']
+        if ("facebookCheck" in social_media_list):
+            x['postImpressions'] = 5#get_fb_post_analytics("postImpressions",tableIds[i])
+            x['engagedUsers'] = 6#get_fb_post_analytics("engagedUsers",tableIds[i])
+            x['reactionsByType'] = 7#get_fb_post_analytics("reactionsByType",tableIds[i])
+            x['reactionLikes'] = 8#get_fb_post_analytics("reactionLikes",tableIds[i])
+        if ("twitterCheck" in social_media_list):
+            x['retweetCount'] = 9#get_twitter_post_analytics('retweetCount', tableIds[i])
+            x['twitterLikeCount'] = 10#get_twitter_post_analytics('likeCount',tableIds[i])
+            x['replyCount'] = 11#get_twitter_post_analytics('replyCount', tableIds[i])
+            x['twitterViews'] = 12#get_twitter_post_analytics('impressionCount',tableIds[i]) #returns list of hashtags?
+            x['hashtags'] = ["#abc", "#bcd"]#get_twitter_post_analytics('hashtags', tableIds[i]) 
+        if ("instagramCheck" in social_media_list):
+            x['instagramViews'] = 13#get_insta_post_analytics('impressionCount', tableIds[i])
+            x['commentCount'] = 14# get_insta_post_analytics('commentCount', tableIds[i])
+            x['instagramLikeCount'] = 15#get_insta_post_analytics('likeCount', tableIds[i])
+            x['accountReach'] = 16#get_insta_post_analytics('reachCount', tableIds[i])  
+        #x has 13 key-value pairs
+        #append x as one element in list and repeat for remaining table ids
+        postAnalyticsDict[post_information['uploadTimeID']] = x
+    return postAnalyticsDict
+
+#print(post_specific_analytics_list_creator())
+
 '''
 url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/' #this is the url for the firebase database
 firebase_connection = firebase.FirebaseApplication(url, None)
-post_information = get_post_information("-Mfe1I2AZpLeax0a4US0")
+
 print("Post info", post_information)
 name_of_db = 'wienerspiel-5cbfd-default-rtdb'
 post_title = post_information['title']
 post_description = post_information['text']
 media_type = post_information['fileType']
-social_media_list = post_information['socialMedia']
+
 
 print("Post Title",post_title, '\n')
 print("Post Desc", post_description, '\n')
 print("Media Type", media_type, '\n')
 print("Social Media list", social_media_list, '\n')
 '''
+#post_information = get_post_information("-Mg2o2nxOwl6W5fWiduG")
+#social_media_list = post_information['socialMedia']
+##print(social_media_list)
 
 #Plan to return list of dictionaries, where each dictionary is one post containing post info.
+
+#Test for firebase_table_id retrieval 
+
+
+#print("Table ids:", get_fb_table_ids())
+#print("URLs:", get_media_url("<uploadID>))
+
 

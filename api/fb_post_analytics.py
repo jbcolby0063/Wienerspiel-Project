@@ -2,7 +2,6 @@ import facebook
 import requests
 import os
 import time
-from PIL import Image
 import requests
 import io
 

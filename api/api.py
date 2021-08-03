@@ -40,7 +40,8 @@ def analytics():
     return {'engagement':fb_post_analytics.get_fb_weekly_page_views_total(),
             'impressions':fb_post_analytics.get_fb_page_impressions_by_age_gender_unique(),
             'reach_x_labels':reach_x, 'reach_y_labels':reach_y, 'follower_x_labels':follower_x, 'follower_y_labels':follower_y,
-            'fb_x_labels':fb_x, 'fb_y_labels':fb_y, 'ig_y_labels':ig_y}
+            'fb_x_labels':fb_x, 'fb_y_labels':fb_y, 'ig_y_labels':ig_y,
+            'post_analytics':firebase_connection.post_specific_analytics_list_creator()}
     #What table ID to use above? What user? need for each post?
 
 

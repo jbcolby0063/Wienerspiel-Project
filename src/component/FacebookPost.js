@@ -33,14 +33,16 @@ export default function FacebookPost({data}) {
     }
 
     useEffect(() => {
-        setLikes(data.likes)
-        setViews(data.views)
+        setLikes(data.reactionLikes)
+        setViews(data.postImpressions)
         setEngagedUsers(data.engagedUsers)
+        //setReactionsData(data.reactionsByType)
         setReactionsData([5 ,1, 1, 4, 2, 6])
     }, [])
 
     return (
         <div>
+           
             {/* <h1>{data.likes}</h1> */}
             <ListGroup>
                 <ListGroup.Item>
