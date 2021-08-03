@@ -20,10 +20,10 @@ def get_post_information(firebase_table_id):
 
 def get_media_url(uploadTimeID):
     config = { #need the api keys for pyrebase
-    "apiKey": "AIzaSyChx8a649AVw7KwLA9_FMTmw_GaQdcYB7M",
-    "authDomain": "wienerspiel-5cbfd.firebaseapp.com",
-    "databaseURL": "https://wienerspiel-5cbfd-default-rtdb.firebaseio.com",
-    "storageBucket": "wienerspiel-5cbfd.appspot.com",
+    "apiKey": "",
+    "authDomain": "",
+    "databaseURL": "",
+    "storageBucket": "",
     "serviceAccount": "serviceAccountKey.json"
     }
     firebase_connection = pyrebase.initialize_app(config)
@@ -188,29 +188,7 @@ def post_specific_analytics_list_creator():
         postAnalyticsDict[post_information['uploadTimeID']] = x
     return postAnalyticsDict
 
-#print(post_specific_analytics_list_creator())
 
-'''
-url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/' #this is the url for the firebase database
-firebase_connection = firebase.FirebaseApplication(url, None)
-
-print("Post info", post_information)
-name_of_db = 'wienerspiel-5cbfd-default-rtdb'
-post_title = post_information['title']
-post_description = post_information['text']
-media_type = post_information['fileType']
-
-
-print("Post Title",post_title, '\n')
-print("Post Desc", post_description, '\n')
-print("Media Type", media_type, '\n')
-print("Social Media list", social_media_list, '\n')
-'''
-#post_information = get_post_information("-Mg2o2nxOwl6W5fWiduG")
-#social_media_list = post_information['socialMedia']
-##print(social_media_list)
-
-#Plan to return list of dictionaries, where each dictionary is one post containing post info.
 
 #Test for firebase_table_id retrieval 
 
