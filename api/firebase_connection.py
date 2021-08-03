@@ -60,11 +60,11 @@ def publish_to_platform():
     media_files = get_media_url(timeid)
     if('facebookCheck' in social_media_list):
         facebook_post_object = fb_post_analytics.fb_post(post_title, post_description, media_type)
-        if(facebook_post_object.media_type == 'video'):
+        if(facebook_post_object.media_type == 'VIDEO'):
             video_url = media_files[0]
             facebook_post_object.post_media_video(video_url)
             firebase_connection.put('/users/' + firebase_table_id, 'Facebook_post_id', str(facebook_post_object.post_id))
-        elif(facebook_post_object.media_type == 'image'):
+        elif(facebook_post_object.media_type == 'IMAGE'):
             facebook_post_object.post_media_photo(media_files)
             firebase_connection.put('/users/' + firebase_table_id, 'Facebook_post_id', str(facebook_post_object.post_id))
         else:
