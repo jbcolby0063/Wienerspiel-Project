@@ -10,7 +10,6 @@ class twitter_post:
             auth = tweepy.OAuthHandler('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb', callback='http://12.0.0.1')
             auth.set_access_token('1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K')
             self.api = tweepy.API(auth)
-            print('connection established', self.api)
         except Exception as e:
             print(e)
         self.post_description = post_description
@@ -38,15 +37,18 @@ class twitter_post:
                 ftype = io.BufferedReader(media)
                 response = self.api.simple_upload(file_name, file=ftype)
                 self.media_id.append(response.media_id_string)
-            else: #issue with posting videos!!!
+            else: 
                 file_name = x.split('/')[-1]
+                media_category = 'TweetVideo'
                 res = requests.get(x)
                 media = io.BytesIO(res.content)
                 ftype = io.BufferedReader(media)
-                time.sleep(30)
-                print(type(ftype))
-                response = self.api.chunked_upload(file_name, file=ftype)
+                response = self.api.media_upload(file_name, file=ftype, chunked=True, media_category= media_category)
                 self.media_id.append(response.media_id_string)
+        
+        status_tweet = self.api.update_status(self.post_description, media_ids = self.media_id)
+        self.post_status_id = status_tweet.id
+        return status_tweet
         
         status_tweet = self.api.update_status(self.post_description, media_ids = self.media_id)
         self.post_status_id = status_tweet.id
@@ -135,23 +137,4 @@ class twitter_post:
     def tweet_hashtags(self):
         entitiles_dict = self.api.get_status(self.post_status_id).entities
         return entitiles_dict['hashtags'] #returns a list of dictionaries with the hashtags!!
-        
-
-# def main():
-#     post_description = 'post test 4!' + '#testAccount' + " " + '#helloworldpython'
-#     #media_for_post = ['pexels-linda-ellershein-1749900.jpeg', 'highway-wallpapers-15.jpeg']
-#     media_2 = ['C:\fakepath\evening.jpeg']
-#     post_title = 'Test1'
-#     tweet1 = twitter_post(post_description, post_title, 'VIDEO')
-#     tweet1.media_file_list(media_2)
-#     print(tweet1.post_media)
-#     tweet1.tweet_post_media()
-#     #print('test:',tweet1.video_views_counter())
-#     print('id:',tweet1.post_status_id)
-#     print(tweet1.tweet_hashtags())
-#     #print('impression_counter:', tweet1.impression_counter(tweet1.post_status_id))
-
-
-# if __name__ == "__main__":
-#     main()
 
