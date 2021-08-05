@@ -96,7 +96,7 @@ export default function Topbar({current}) {
                         <Dropdown.Item onClick={onClickUpdatePassword} style={current === "updatePasswordPage" ? {backgroundColor: "#DADADA"} : {}}>Update Password</Dropdown.Item>
                         <Dropdown.Item onClick={onClickSetAdministrator} style={current === "setAdminPage" ? {backgroundColor: "#DADADA"} : {}}>Set Administrator</Dropdown.Item>
                         {currentAdmin === "admin" && <Dropdown.Item onClick={onClickChangeAdminCode} style={current === "changeAdminCodePage" ? {backgroundColor: "#DADADA"} : {}}>Change Admin Code</Dropdown.Item>}
-                        {currentAdmin === "admin" && <Dropdown.Item onClick={onClickAccountList} style={current === "accountListPage" ? {backgroundColor: "#DADADA"} : {}}>Account List</Dropdown.Item>}
+                        {/* {currentAdmin === "admin" && <Dropdown.Item onClick={onClickAccountList} style={current === "accountListPage" ? {backgroundColor: "#DADADA"} : {}}>Account List</Dropdown.Item>} */}
                         <Dropdown.Item onClick={handleLogout} style={normalText}>Logout </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

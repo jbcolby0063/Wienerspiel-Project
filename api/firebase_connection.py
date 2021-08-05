@@ -13,7 +13,7 @@ def get_post_information(firebase_table_id):
     This function will get the information for the firebase database
     returns the post information in a dictionary format
     '''
-    url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com' #this is the url for the firebase database (change if necessary)
+    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com' #this is the url for the firebase database (change if necessary)
     firebase_connection = firebase.FirebaseApplication(url, None)
     post_information = firebase_connection.get('/users/' + firebase_table_id, '')
     return post_information #will also contain post-specific analytics too
@@ -37,7 +37,7 @@ def get_media_url(uploadTimeID):
 
 
 def get_fb_table_ids(): #gets the list of firebase table ids
-    url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/'
+    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
     firebase_table_id = list(firebase_connection.get('users/', '').keys())
     return firebase_table_id
@@ -48,7 +48,7 @@ def publish_to_platform():
     will return the post id for each platform in the form of an dictionary object
     will also return the media type in the dictionary object (either 'IMAGE' or 'VIDEO')
     '''
-    url = 'https://wienerspiel-5cbfd-default-rtdb.firebaseio.com/' #this is the url for the firebase database
+    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
     firebase_table_id = list(firebase_connection.get('users/', '').keys())[1]
     post_information = get_post_information(firebase_table_id)

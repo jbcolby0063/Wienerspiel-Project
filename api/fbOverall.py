@@ -5,7 +5,7 @@ from datetime import datetime
 from firebase import firebase
 import schedule
 
-firebasePost = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
+firebasePost = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
 ig_data = {
     datetime.today().strftime("%d-%m-%y"): insta_post.get_insta_account_reach_count(),
 }
@@ -17,9 +17,9 @@ def update_daily_views():
     firebasePost.post('ViewsGraph/FacebookOverall/totalViews', fb_data)
     firebasePost.post('ViewsGraph/InstagramOverall/totalViews', ig_data)
 
-#update_daily_views() #Call function to update daily views when needed
+update_daily_views() #Call function to update daily views when needed
 
-firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
+firebaseGet = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
 fb_get = firebaseGet.get('ViewsGraph/FacebookOverall/totalViews', '')
 ig_get = firebaseGet.get('ViewsGraph/InstagramOverall/totalViews', '')
 

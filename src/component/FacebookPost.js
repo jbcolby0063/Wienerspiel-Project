@@ -33,9 +33,9 @@ export default function FacebookPost({data}) {
     }
 
     useEffect(() => {
-        setLikes(data.reactionLikes)
-        setViews(data.postImpressions)
-        setEngagedUsers(data.engagedUsers)
+        //setLikes(data.reactionLikes)
+        //setViews(data.postImpressions)
+        //setEngagedUsers(data.engagedUsers)
         //setReactionsData(data.reactionsByType)
         setReactionsData([5 ,1, 1, 4, 2, 6])
     }, [])

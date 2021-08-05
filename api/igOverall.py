@@ -4,7 +4,7 @@ from firebase import firebase
 import schedule
 import insta_post
 
-firebasePost = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
+firebasePost = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
 
 reach_data = {
     datetime.today().strftime("%d-%m"): insta_post.get_insta_account_reach_count()
@@ -18,10 +18,10 @@ def update_react_count():
     firebasePost.post('OverallAnalytics/InstagramOverall/reachCount', reach_data)
     firebasePost.post('OverallAnalytics/InstagramOverall/followerCount', follower_data)
 
-#update_react_count() #Call function to post reach data and follower data to Firebase
+# update_react_count() #Call function to post reach data and follower data to Firebase
 
 #Retrieve data from Firebase
-firebaseGet = firebase.FirebaseApplication("https://wienerspiel-5cbfd-default-rtdb.firebaseio.com", None)
+firebaseGet = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
 reach_get = firebaseGet.get('OverallAnalytics/InstagramOverall/reachCount', '')
 follower_get = firebaseGet.get('OverallAnalytics/InstagramOverall/followerCount', '')
 

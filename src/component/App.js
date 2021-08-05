@@ -32,7 +32,7 @@ function App() {
               <PrivateRoute path="/update-profile" component={UpdateProfile} /> 
               <PrivateRoute path="/update-password" component={UpdatePassword} /> 
               <PrivateRoute path="/update-admin" component={UpdateAdmin} /> 
-              <AdminRoute path="/account-list" component={AccountList} /> 
+              {/* <AdminRoute path="/account-list" component={AccountList} />  */}
               <AdminRoute path="/change-admin-code" component={ChangeAdminCode} /> 
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />

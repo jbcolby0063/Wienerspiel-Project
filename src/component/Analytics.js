@@ -30,7 +30,7 @@ export default function Analytics() {
     const [dataList, setDataList] = useState()
     const [modalShow, setModalShow] = useState(false)
     const [individualPostAnalytics, setIndividualPostAnalytics] = useState({})
-    const [analyticsData, setAnalyticsData] = useState({})
+    const [analyticsData, setAnalyticsData] = useState("")
     
     
     /* {'post1_1627856581476': {'postImpressions': 5, 'engagedUsers': 6, 'reactionsByType': 7, 'reactionLikes': 8, 'retweetCount': 9, 'twitterLikeCount': 10, 'replyCount': 11, 'twitterViews': 12, 'hashtags': ['#abc',
@@ -47,12 +47,12 @@ export default function Analytics() {
         setModalShow(true) // once true, yarn 
     }
 
-    const x = fetch('/analytics').then(res => res.json()).then(data => {
-        setAnalyticsData(data.post_analytics)
-    })
-
     useEffect(() => {
         const postList = db.ref("users") // where posts are stored
+
+        fetch('/analytics').then(res => res.json()).then(data => { // get post_analytics data (you can set all analytics data here)
+            setAnalyticsData(data.post_analytics)
+        })
     
         postList.on('value', (snapshot) => { // get all post data from realtime db
             const data = snapshot.val() // array of firebase post data
@@ -88,6 +88,7 @@ export default function Analytics() {
             <div id={sidebarVisible && "content"} className="content d-flex w-100 p-5 overflow-auto" style={{flex: "1"}}>
                 <div className="d-flex flex-row flex-wrap" style={{margin: "auto"}}>
                     <div className="d-flex flex-column mr-4" style={{width: "780px"}}>
+                        {analyticsData}
                         <Card className="shadow mt-3" style={{width: "780px", height: "350px"}}>
                             <Card.Body>
                                 <Card.Title><TotalViewsLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Total Viewers</h3></Card.Title>
