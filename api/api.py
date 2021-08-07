@@ -12,18 +12,10 @@ import time
 app = Flask(__name__)
 
 #unimportant code
-'''
-@app.route('/time') # /time URL
-def get_current_time():
-    return {'time': time.time()} # return response
-'''
 
 #Organization of the files
 '''
-Response to Post button click
-- Front-end: send post information to firebase
-- Backend: retrieve post information from firebase and post to the appropriate platforms
-- Backend: retieve the post information and store it on firebase
+Integration of Posting Feature
 '''
 #untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
 @app.route('/analytics', methods=['POST', 'GET'])
@@ -38,9 +30,7 @@ def post_to_platform():
 
 
 '''
-Response to the Analytics button click
-- Front end: will show all posts and account analytics. Retrieve information from firebase
-- Backend will retrieve data for account analytics and then store onto firebase
+Integration of Overall analytics page
 '''
 
 @app.route("/analytics") #used in TotalViews.js and FacebookOverall.js
@@ -54,15 +44,8 @@ def analytics():
     #What table ID to use above? What user? need for each post?
 
 
-
-
-
-
-
 '''
-Response to clicking on post card
-- Frond end will show the information and charts. Retrieve information from firebase
-- Backend will retrieve data for that specific post from each of the platforms. Add information to the firebase(for specific post)
+Integration of Post specific Analytics
 '''
 
 
