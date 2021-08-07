@@ -26,7 +26,7 @@ Response to Post button click
 - Backend: retieve the post information and store it on firebase
 '''
 #untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/analytics', methods=['POST', 'GET'])
 def post_to_platform():
     if (request.method == 'POST'):
         try:
