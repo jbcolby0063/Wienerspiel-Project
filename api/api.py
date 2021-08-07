@@ -11,8 +11,6 @@ import time
 
 app = Flask(__name__)
 
-#unimportant code
-
 #Organization of the files
 '''
 Integration of Posting Feature
