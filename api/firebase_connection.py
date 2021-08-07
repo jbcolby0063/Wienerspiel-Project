@@ -50,7 +50,7 @@ def publish_to_platform():
     '''
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
-    firebase_table_id = list(firebase_connection.get('users/', '').keys())[1]
+    firebase_table_id = list(firebase_connection.get('users/', '').keys())[0]
     post_information = get_post_information(firebase_table_id)
     post_title = post_information['title']
     post_description = post_information['text']
