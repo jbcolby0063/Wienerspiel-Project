@@ -1,5 +1,5 @@
 # Flask API Project
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, render_template, request
 from fbOverall import fb_x, fb_y, ig_y
 from igOverall import reach_x, reach_y, follower_x, follower_y
 import firebase_connection
@@ -11,6 +11,7 @@ import time
 
 app = Flask(__name__)
 
+#unimportant code
 '''
 @app.route('/time') # /time URL
 def get_current_time():
@@ -24,7 +25,15 @@ Response to Post button click
 - Backend: retrieve post information from firebase and post to the appropriate platforms
 - Backend: retieve the post information and store it on firebase
 '''
-
+#untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
+@app.route('/', methods=['POST', 'GET'])
+def post_to_platform():
+    if (request.method == 'POST'):
+        try:
+            firebase_connection.publish_to_platform() #will get the information from firebase and then publish to the appropriate platforms
+        except Exception as e:
+            return None
+        
 
 
 
