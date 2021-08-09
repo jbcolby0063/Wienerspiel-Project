@@ -50,7 +50,7 @@ def publish_to_platform():
     '''
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
-    firebase_table_id = list(firebase_connection.get('users/', '').keys())[1]
+    firebase_table_id = list(firebase_connection.get('users/', '').keys())[0]
     post_information = get_post_information(firebase_table_id)
     post_title = post_information['title']
     post_description = post_information['text']
@@ -91,10 +91,10 @@ def get_fb_post_analytics(name_of_metric, firebase_table_id):
     post_info = get_post_information(firebase_table_id)
     post_title = post_info['title']
     post_description = post_info['text']
-    media_type = ' ' #will need to store the media type on firebase!!
-    #post_id_fb = post_info['Facebook_post_id']
+    media_type = post_info['fileType'] #will need to store the media type on firebase!!
+    post_id_fb = post_info['Facebook_post_id']
     facebook_post_object = fb_post_analytics.fb_post(post_title, post_description, media_type)
-   # facebook_post_object.set_fb_post_id(post_id_fb)
+    facebook_post_object.set_fb_post_id(post_id_fb)
     facebook_post_object.set_fb_media_type(media_type)
     if(name_of_metric == 'postImpressions'):
         return facebook_post_object.get_fb_post_impressions()
@@ -112,10 +112,10 @@ def get_twitter_post_analytics(name_of_metric, firebase_table_id):
     post_info = get_post_information(firebase_table_id)
     post_title = post_info['title']
     post_description = post_info['text']
-    media_type = ' ' #will need to store the media type on firebase!!
-    #post_id_fb = post_info['Twitter_post_id']
+    media_type = post_info['fileType']#will need to store the media type on firebase!!
+    post_id_fb = post_info['Twitter_post_id']
     twitter_post_object = twitter_post_analytics.twitter_post(post_description, post_title, media_type)
-    #twitter_post_object.set_twitter_post_id(post_id_fb)
+    twitter_post_object.set_twitter_post_id(post_id_fb)
     twitter_post_object.set_twitter_media_type(media_type)
     
     if(name_of_metric == 'retweetCount'):
@@ -142,10 +142,10 @@ def get_insta_post_analytics(name_of_metric, firebase_table_id):
     post_info = get_post_information(firebase_table_id)
     post_title = post_info['title']
     post_description = post_info['text']
-    media_type = ' ' #will need to store the media type on firebase!!
-    #post_id_fb = post_info['Instagram_post_id']
+    media_type = post_info['fileType'] #will need to store the media type on firebase!!
+    post_id_fb = post_info['Instagram_post_id']
     instagram_post_object = insta_post.insta_post(post_title, post_description, media_type)
-    #instagram_post_object.set_insta_post_id(post_id_fb)
+    instagram_post_object.set_insta_post_id(post_id_fb)
     instagram_post_object.set_insta_media_type(media_type)
 
     if(name_of_metric == 'impressionCount'):
