@@ -10,6 +10,7 @@ import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 import UpdateAdmin from "./UpdateAdmin";
+import UpdateProfilePic from "./UpdateProfilePic"
 import AccountList from "./AccountList"
 import ChangeAdminCode from "./ChangeAdminCode"
 import Analytics from "./Analytics"
@@ -32,6 +33,7 @@ function App() {
               <PrivateRoute path="/update-profile" component={UpdateProfile} /> 
               <PrivateRoute path="/update-password" component={UpdatePassword} /> 
               <PrivateRoute path="/update-admin" component={UpdateAdmin} /> 
+              <PrivateRoute path="/update-pic" component={UpdateProfilePic} /> 
               {/* <AdminRoute path="/account-list" component={AccountList} />  */}
               <AdminRoute path="/change-admin-code" component={ChangeAdminCode} /> 
               <Route path="/signup" component={SignUp} />

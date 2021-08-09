@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, {useState, useEffect } from 'react'
 import { Navbar, Dropdown } from 'react-bootstrap'
 import menuIcon from '../menuIcon.svg'
 import { useHistory } from 'react-router-dom'
@@ -13,7 +13,8 @@ export const SidebarContext = React.createContext()
 export default function Topbar({current}) {
     const history = useHistory() 
     const [error, setError] = useState("")
-    const { currentUser, logout, showSidebar, setSidebarVisible, currentScreen, setCurrentScreen, currentAdmin } = useAuth()
+    const [accountPic, setAccountPic] = useState("")
+    const { currentUser, logout, showSidebar, setSidebarVisible, currentScreen, setCurrentScreen, currentAdmin, currentProfilePic } = useAuth()
 
     async function handleLogout() {
         setError('')
@@ -36,6 +37,14 @@ export default function Topbar({current}) {
 
     function onClickUpdatePassword() {
         history.push("/update-password");
+        setCurrentScreen(window.innerWidth)
+        if (currentScreen < 1300) {
+            setSidebarVisible(false)
+        }
+    }
+
+    function onClickUpdateProfilePic() {
+        history.push("/update-pic");
         setCurrentScreen(window.innerWidth)
         if (currentScreen < 1300) {
             setSidebarVisible(false)
@@ -74,7 +83,6 @@ export default function Topbar({current}) {
         }
     }
 
-    
     return (
         <div>
             <Navbar className="d-flex align-items-center justify-content-center" style={{boxShadow: "0 8px 6px -6px #999", zIndex: "2"}}>
@@ -84,9 +92,14 @@ export default function Topbar({current}) {
                 </div>
                 <Dropdown className="d-flex align-items-center flex-row-reverse" style={{flex: 1, marginRight: "10px"}}>
                     <Dropdown.Toggle variant="none" id="account-dropdown" style={{padding: "0px"}}>
-                        {currentAdmin === "admin" ? 
-                            <img src={account} alt="account icon" /> :
-                            <img src={account_nonadmin} alt="account icon" />}
+                        {(currentProfilePic === null && currentAdmin === "admin") && 
+                        <img src={account} alt="account icon" style={{width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%", border: "5px solid #BB0101"}} />}
+                        {(currentProfilePic === null && currentAdmin !== "admin") && 
+                        <img src={account_nonadmin} alt="account icon" style={{width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%", border: "5px solid #878787"}} />}
+                        {(currentProfilePic !== null && currentAdmin === "admin") && 
+                        <img src={currentProfilePic} alt="account icon" style={{width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%", border: "5px solid #BB0101"}} />}
+                        {(currentProfilePic !== null && currentAdmin !== "admin") && 
+                        <img src={currentProfilePic} alt="account icon" style={{width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%", border: "5px solid #878787"}} />}
                         
                     </Dropdown.Toggle>
 
@@ -94,6 +107,7 @@ export default function Topbar({current}) {
                         <Dropdown.Item disabled="true"><div style={{color: "#BB0101"}}>{currentUser.email}</div></Dropdown.Item>
                         <Dropdown.Item onClick={onClickUpdateEmail} style={current === "updateEmailPage" ? {backgroundColor: "#DADADA"} : {}}>Update Email</Dropdown.Item>
                         <Dropdown.Item onClick={onClickUpdatePassword} style={current === "updatePasswordPage" ? {backgroundColor: "#DADADA"} : {}}>Update Password</Dropdown.Item>
+                        <Dropdown.Item onClick={onClickUpdateProfilePic} style={current === "updateProfilePic" ? {backgroundColor: "#DADADA"} : {}}>Update Profile Picture</Dropdown.Item>
                         <Dropdown.Item onClick={onClickSetAdministrator} style={current === "setAdminPage" ? {backgroundColor: "#DADADA"} : {}}>Set Administrator</Dropdown.Item>
                         {currentAdmin === "admin" && <Dropdown.Item onClick={onClickChangeAdminCode} style={current === "changeAdminCodePage" ? {backgroundColor: "#DADADA"} : {}}>Change Admin Code</Dropdown.Item>}
                         {/* {currentAdmin === "admin" && <Dropdown.Item onClick={onClickAccountList} style={current === "accountListPage" ? {backgroundColor: "#DADADA"} : {}}>Account List</Dropdown.Item>} */}

@@ -88,7 +88,6 @@ export default function Analytics() {
             <div id={sidebarVisible && "content"} className="content d-flex w-100 p-5 overflow-auto" style={{flex: "1"}}>
                 <div className="d-flex flex-row flex-wrap" style={{margin: "auto"}}>
                     <div className="d-flex flex-column mr-4" style={{width: "780px"}}>
-                        {analyticsData}
                         <Card className="shadow mt-3" style={{width: "780px", height: "350px"}}>
                             <Card.Body>
                                 <Card.Title><TotalViewsLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Total Viewers</h3></Card.Title>
