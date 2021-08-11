@@ -170,7 +170,7 @@ def post_specific_analytics_list_creator():
         if ("facebookCheck" in social_media_list):
             x['postImpressions'] = 5#get_fb_post_analytics("postImpressions",tableIds[i])
             x['engagedUsers'] = 6#get_fb_post_analytics("engagedUsers",tableIds[i])
-            x['reactionsByType'] = 7#get_fb_post_analytics("reactionsByType",tableIds[i])
+            x['reactionsByType'] = [7 ,1, 1, 4, 2, 6]#get_fb_post_analytics("reactionsByType",tableIds[i])
             x['reactionLikes'] = 8#get_fb_post_analytics("reactionLikes",tableIds[i])
         if ("twitterCheck" in social_media_list):
             x['retweetCount'] = 9#get_twitter_post_analytics('retweetCount', tableIds[i])

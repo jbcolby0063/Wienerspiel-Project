@@ -148,7 +148,6 @@ export default function PostDetail({data, postData, show, onHide}) {
         setFileError(false)
         setFileLoading(true)
         getImage()
-        
     }, [])
 
     return (

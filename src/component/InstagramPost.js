@@ -8,10 +8,12 @@ export default function InstagramPost({data}) {
     const [comments, setComment] = useState("")
 
     useEffect(() => {
-        //setLikes(data.instagramLikeCount)
-        //setViews(data.instagramViews)
-        //setReach(data.accountReach)
-        //setComment(data.commentCount)
+        if (typeof data != "undefined") {
+            setLikes(data.instagramLikeCount)
+            setViews(data.instagramViews)
+            setReach(data.accountReach)
+            setComment(data.commentCount)
+        }
     }, [])
 
     return (

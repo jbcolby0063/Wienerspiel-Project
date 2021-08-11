@@ -9,11 +9,13 @@ export default function TwitterPost({data}) {
     const [hashtags, setHashtags] = useState("")
 
     useEffect(() => {
-        //setViews(data.twitterViews)
-        //etLikes(data.twitterLikeCount)
-        //setRetweet(data.retweetCount)
-        //setReply(data.replyCount)
-        //setHashtags(data.hashtags)
+        if (typeof data != "undefined") {
+            setViews(data.twitterViews)
+            setLikes(data.twitterLikeCount)
+            setRetweet(data.retweetCount)
+            setReply(data.replyCount)
+            setHashtags(data.hashtags)
+        }
         }
     , [])
 

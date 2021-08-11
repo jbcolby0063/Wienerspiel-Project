@@ -11,18 +11,18 @@ import time
 
 app = Flask(__name__)
 
-#Organization of the files
-'''
-Integration of Posting Feature
-'''
-#untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
-@app.route('/analytics', methods=['POST', 'GET'])
-def post_to_platform():
-    if (request.method == 'POST'):
-        try:
-            firebase_connection.publish_to_platform() #will get the information from firebase and then publish to the appropriate platforms
-        except Exception as e:
-            return None
+# #Organization of the files
+# '''
+# Integration of Posting Feature
+# '''
+# #untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
+# @app.route('/analytics', methods=['POST', 'GET'])
+# def post_to_platform():
+#     if (request.method == 'POST'):
+#         try:
+#             firebase_connection.publish_to_platform() #will get the information from firebase and then publish to the appropriate platforms
+#         except Exception as e:
+#             return None
         
 
 
@@ -39,6 +39,7 @@ def analytics():
             'reach_x_labels':reach_x, 'reach_y_labels':reach_y, 'follower_x_labels':follower_x, 'follower_y_labels':follower_y,
             'fb_x_labels':fb_x, 'fb_y_labels':fb_y, 'ig_y_labels':ig_y,
             'post_analytics':firebase_connection.post_specific_analytics_list_creator()}
+    #{'post test1_1628629828115': {'postImpressions': 100, 'engagedUsers': 6, 'reactionsByType': 7, 'reactionLikes': 100, 'retweetCount': 9, 'twitterLikeCount': 10, 'replyCount': 11, 'twitterViews': 12, 'hashtags': ['#abc', '#bcd'], 'instagramViews': 13, 'commentCount': 14, 'instagramLikeCount': 15, 'accountReach': 16}, 'ttt v2_1628665969542': {'postImpressions': 22, 'engagedUsers': 22, 'reactionsByType': 22, 'reactionLikes': 22, 'retweetCount': 22, 'twitterLikeCount': 22, 'replyCount': 22, 'twitterViews': 22, 'hashtags': ['#abc', '#bcd'], 'instagramViews': 33, 'commentCount': 22, 'instagramLikeCount': 22, 'accountReach': 22}}
     #What table ID to use above? What user? need for each post?
 
 
