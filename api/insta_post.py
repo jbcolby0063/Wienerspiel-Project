@@ -43,13 +43,14 @@ class insta_post:
         endpointParams['caption'] = self.post_description
         endpointParams['access_token'] = self.access
 
-        if(self.media_type == 'IMAGE'):
+        if(self.media_type == 'image'):
             endpointParams['image_url'] = media_urls
         else:
             endpointParams['video_url'] = media_urls
             endpointParams['media_type'] = self.media_type
 
-        self.media_id = self.api_call(url, endpointParams, 'POST')['json_data']['id']
+        self.media_id = self.api_call(url, endpointParams, 'POST')['json_data']#['id']
+        print(self.media_id)
         return self.media_id
     
     def publish_post(self):

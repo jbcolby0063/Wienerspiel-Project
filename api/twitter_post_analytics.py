@@ -2,7 +2,10 @@ import tweepy
 import requests
 import json
 from requests_oauthlib import OAuth1
-
+from PIL import Image
+import requests
+import io
+import time
 
 class twitter_post:
     def __init__(self, post_description, post_title, media_type):
@@ -30,12 +33,13 @@ class twitter_post:
         #allows user to send multiple media files
         self.media_id = []
         for x in self.post_media:
-            if(self.media_type == 'IMAGE'):
+            if(self.media_type == 'image'):
+                print(x)
                 file_name = x.split('/')[-1]
                 res = requests.get(x)
                 media = io.BytesIO(res.content)
                 ftype = io.BufferedReader(media)
-                response = self.api.simple_upload(file_name, file=ftype)
+                response = self.api.media_upload(file_name, file=ftype)
                 self.media_id.append(response.media_id_string)
             else: 
                 file_name = x.split('/')[-1]
@@ -45,10 +49,6 @@ class twitter_post:
                 ftype = io.BufferedReader(media)
                 response = self.api.media_upload(file_name, file=ftype, chunked=True, media_category= media_category)
                 self.media_id.append(response.media_id_string)
-        
-        status_tweet = self.api.update_status(self.post_description, media_ids = self.media_id)
-        self.post_status_id = status_tweet.id
-        return status_tweet
         
         status_tweet = self.api.update_status(self.post_description, media_ids = self.media_id)
         self.post_status_id = status_tweet.id

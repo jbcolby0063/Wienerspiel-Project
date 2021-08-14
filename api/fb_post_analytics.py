@@ -2,6 +2,7 @@ import facebook
 import requests
 import os
 import time
+from PIL import Image
 import requests
 import io
 
@@ -64,8 +65,10 @@ class fb_post:
         args=dict()
         args["message"]= self.post_description
         self.graph_api_fb.request(path= '/102077748764166/videos?file_url=' + self.media_info[0] + '&description=' + self.post_description, args=None, post_args=args, method='POST')
+        print("stage1 clear")
         time.sleep(90)
         post_facebook = self.graph_api_fb.request(path= '/me?fields=posts{id}', args=None, post_args=None, method='GET')
+        print("stage2 clear")
         self.post_id = post_facebook['posts']['data'][0]['id']
         return self.post_id
     
@@ -105,7 +108,7 @@ class fb_post:
         return num_likes
     
     def get_fb_post_video_avg_time_watched(self):
-        if(self.media_type == 'VIDEO'):
+        if(self.media_type == 'video'):
             num_vid_views = self.graph_api_fb.request(path= str(self.post_id) + '/insights/post_video_avg_time_watched?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][0]['value']
             return num_vid_views
         else:

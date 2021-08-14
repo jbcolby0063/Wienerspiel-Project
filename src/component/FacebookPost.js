@@ -33,7 +33,7 @@ export default function FacebookPost({data}) {
     }
 
     useEffect(() => {
-        if (typeof data != "undefined") {
+        if (typeof data !== "undefined") {
             setLikes(data.reactionLikes)
             setViews(data.postImpressions)
             setEngagedUsers(data.engagedUsers)

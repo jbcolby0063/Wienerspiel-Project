@@ -110,6 +110,21 @@ export default function PostPage() {
         })
     }
 
+    async function post_fetch() {
+        console.log("running function post_fetch()")
+        fetch('/', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                post: 1
+            })
+        }).then(res => {
+            return res.json()
+        }).then(data => console.log(data))
+    }
+
     async function handleSubmit(e) {
         e.preventDefault()
 
@@ -124,6 +139,7 @@ export default function PostPage() {
                 await handleStorage().child(file.name).put(file)
             }
             await handleDB()
+            await post_fetch()
             history.push("/analytics")
         } catch(rej) {
             if (rej === "imageError") {

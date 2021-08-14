@@ -9,7 +9,7 @@ export default function TwitterPost({data}) {
     const [hashtags, setHashtags] = useState("")
 
     useEffect(() => {
-        if (typeof data != "undefined") {
+        if (typeof data !== "undefined") {
             setViews(data.twitterViews)
             setLikes(data.twitterLikeCount)
             setRetweet(data.retweetCount)

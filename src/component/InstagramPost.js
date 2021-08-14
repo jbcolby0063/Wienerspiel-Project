@@ -8,7 +8,7 @@ export default function InstagramPost({data}) {
     const [comments, setComment] = useState("")
 
     useEffect(() => {
-        if (typeof data != "undefined") {
+        if (typeof data !== "undefined") {
             setLikes(data.instagramLikeCount)
             setViews(data.instagramViews)
             setReach(data.accountReach)

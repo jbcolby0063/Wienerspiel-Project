@@ -11,18 +11,16 @@ import time
 
 app = Flask(__name__)
 
-# #Organization of the files
-# '''
-# Integration of Posting Feature
-# '''
-# #untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
-# @app.route('/analytics', methods=['POST', 'GET'])
-# def post_to_platform():
-#     if (request.method == 'POST'):
-#         try:
-#             firebase_connection.publish_to_platform() #will get the information from firebase and then publish to the appropriate platforms
-#         except Exception as e:
-#             return None
+#Organization of the files
+'''
+Integration of Posting Feature
+'''
+#untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
+@app.route('/', methods=['POST', 'GET'])
+def post_to_platform():
+    if (request.method == 'POST'):
+        firebase_connection.publish_to_platform()
+    return {"posted": True}
         
 
 

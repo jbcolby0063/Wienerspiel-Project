@@ -18,19 +18,18 @@ def get_post_information(firebase_table_id):
     post_information = firebase_connection.get('/users/' + firebase_table_id, '')
     return post_information #will also contain post-specific analytics too
 
-def get_media_url(uploadTimeID):
+def get_media_url(uploadTimeID, media_files):
     config = { #need the api keys for pyrebase
     "apiKey": "",
     "authDomain": "",
     "databaseURL": "",
     "storageBucket": "",
-    "serviceAccount": "serviceAccountKey.json"
+    "serviceAccount": "../src/serviceAccountKey.json"
     }
     firebase_connection = pyrebase.initialize_app(config)
     storage = firebase_connection.storage()
-    list_of_media_files = storage.child("users/"+ str(uploadTimeID)).list_files() #need the path in firebase storage
     urls_media_files = []
-    for x in list_of_media_files:
+    for x in media_files:
         url = storage.child("users/"+ str(uploadTimeID) + '/' +str(x)).get_url(None)
         urls_media_files.append(url)
     return urls_media_files
@@ -48,23 +47,23 @@ def publish_to_platform():
     will return the post id for each platform in the form of an dictionary object
     will also return the media type in the dictionary object (either 'IMAGE' or 'VIDEO')
     '''
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/' #this is the url for the firebase database
+    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com' #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
-    firebase_table_id = list(firebase_connection.get('users/', '').keys())[0]
+    firebase_table_id = list(firebase_connection.get('users/', '').keys())[-1]
     post_information = get_post_information(firebase_table_id)
     post_title = post_information['title']
     post_description = post_information['text']
     media_type = post_information['fileType']
     social_media_list = post_information['socialMedia']
     timeid = post_information['uploadTimeID']
-    media_files = get_media_url(timeid)
+    list_media = post_information['fileName']
+    media_files = get_media_url(timeid, list_media)
     if('facebookCheck' in social_media_list):
         facebook_post_object = fb_post_analytics.fb_post(post_title, post_description, media_type)
-        if(facebook_post_object.media_type == 'VIDEO'):
-            video_url = media_files[0]
-            facebook_post_object.post_media_video(video_url)
+        if(facebook_post_object.media_type == 'video'):
+            facebook_post_object.post_media_video(media_files)
             firebase_connection.put('/users/' + firebase_table_id, 'Facebook_post_id', str(facebook_post_object.post_id))
-        elif(facebook_post_object.media_type == 'IMAGE'):
+        elif(facebook_post_object.media_type == 'image'):
             facebook_post_object.post_media_photo(media_files)
             firebase_connection.put('/users/' + firebase_table_id, 'Facebook_post_id', str(facebook_post_object.post_id))
         else:
@@ -84,6 +83,7 @@ def publish_to_platform():
         instagram_post_object.get_media_ids(media_files) #media files must be file path
         instagram_post_object.publish_post()
         firebase_connection.put('/users/' + firebase_table_id, 'Instagram_post_id', str(instagram_post_object.post_status_id))
+    return None
 
 #Connects to Firebase in order to retrieve post specific analytics
 def get_fb_post_analytics(name_of_metric, firebase_table_id):
