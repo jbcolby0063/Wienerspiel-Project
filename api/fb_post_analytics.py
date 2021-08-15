@@ -1,4 +1,5 @@
 import facebook
+import pyshorteners
 import requests
 import os
 import time
@@ -62,13 +63,14 @@ class fb_post:
             self.media_info = []
             for x in media_list:
                 self.media_info.append(x)
+
+        s = pyshorteners.Shortener()
+        url = s.chilpit.short(self.media_info[0])
         args=dict()
         args["message"]= self.post_description
-        self.graph_api_fb.request(path= '/102077748764166/videos?file_url=' + self.media_info[0] + '&description=' + self.post_description, args=None, post_args=args, method='POST')
-        print("stage1 clear")
+        self.graph_api_fb.request(path= '/102077748764166/videos?file_url=' + url + '&description=' + self.post_description, args=None, post_args=args, method='POST')
         time.sleep(90)
         post_facebook = self.graph_api_fb.request(path= '/me?fields=posts{id}', args=None, post_args=None, method='GET')
-        print("stage2 clear")
         self.post_id = post_facebook['posts']['data'][0]['id']
         return self.post_id
     
