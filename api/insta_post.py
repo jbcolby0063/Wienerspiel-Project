@@ -1,7 +1,9 @@
 import requests
 import json
 import time
+import asyncio
 import facebook
+import pyshorteners
 
 
 #only allows for one image post or 1 video post!
@@ -42,14 +44,18 @@ class insta_post:
         endpointParams = dict()
         endpointParams['caption'] = self.post_description
         endpointParams['access_token'] = self.access
+        
+        #converting media urls
+        s = pyshorteners.Shortener()
+        url = s.chilpit.short(media_urls[0])
 
         if(self.media_type == 'image'):
-            endpointParams['image_url'] = media_urls
+            endpointParams['image_url'] = url
         else:
-            endpointParams['video_url'] = media_urls
+            endpointParams['video_url'] = url
             endpointParams['media_type'] = self.media_type
 
-        self.media_id = self.api_call(url, endpointParams, 'POST')['json_data']#['id']
+        self.media_id = self.api_call(url, endpointParams, 'POST')['json_data']['id']
         print(self.media_id)
         return self.media_id
     
