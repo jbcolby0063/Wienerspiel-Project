@@ -20,10 +20,10 @@ def get_post_information(firebase_table_id):
 
 def get_media_url(uploadTimeID, media_files):
     config = { #need the api keys for pyrebase
-    "apiKey": "",
-    "authDomain": "",
-    "databaseURL": "",
-    "storageBucket": "",
+    "apiKey": "AIzaSyATuqPG2BFZQX0QQJNR-0g6gb5FGUkMnA4",
+    "authDomain": "auth-development-3cb88.firebaseapp.com",
+    "databaseURL": "https://auth-development-3cb88-default-rtdb.firebaseio.com",
+    "storageBucket": "auth-development-3cb88.appspot.com",
     "serviceAccount": "../src/serviceAccountKey.json"
     }
     firebase_connection = pyrebase.initialize_app(config)
@@ -73,7 +73,7 @@ def publish_to_platform():
         twitter_post_object = twitter_post_analytics.twitter_post(post_description, post_title, media_type)
         if(twitter_post_object.media_type != None):
             twitter_post_object.media_file_list(media_files) #"media_files" must be in list format!
-            twitter_post_object.tweet_post_media()
+            twitter_post_object.tweet_post_media(list_media)
             firebase_connection.put('/users/' + firebase_table_id, 'Twitter_post_id', str(twitter_post_object.post_status_id))
         else:
             twitter_post_object.tweet_post_nomedia()
@@ -82,7 +82,7 @@ def publish_to_platform():
         instagram_post_object = insta_post.insta_post(post_title, post_description, media_type)
         instagram_post_object.get_media_ids(media_files) #media files must be file path
         instagram_post_object.publish_post()
-        firebase_connection.put('/users/' + firebase_table_id, 'Instagram_post_id', str(instagram_post_object.post_status_id))
+        firebase_connection.put('/users/' + firebase_table_id, 'Instagram_post_id', str(instagram_post_object.post_id))
     return None
 
 #Connects to Firebase in order to retrieve post specific analytics

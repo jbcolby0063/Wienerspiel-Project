@@ -16,7 +16,6 @@ class fb_post:
         try:
             self.access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
             self.graph_api_fb = facebook.GraphAPI(access_token= self.access, version= 3.1)
-            print(self.graph_api_fb)
         except Exception as e:
             print(e)
         self.post_title = post_title

@@ -40,23 +40,23 @@ class insta_post:
 
     def get_media_ids(self, media_urls):
         url = self.endpoint_base + self.insta_account + '/media'
-        
+
         endpointParams = dict()
         endpointParams['caption'] = self.post_description
         endpointParams['access_token'] = self.access
         
         #converting media urls
         s = pyshorteners.Shortener()
-        url = s.chilpit.short(media_urls[0])
+        url1 = s.chilpit.short(media_urls[0])
 
         if(self.media_type == 'image'):
-            endpointParams['image_url'] = url
+            endpointParams['image_url'] = url1
         else:
-            endpointParams['video_url'] = url
-            endpointParams['media_type'] = self.media_type
+            endpointParams['video_url'] = url1
+            endpointParams['media_type'] = 'VIDEO'
 
         self.media_id = self.api_call(url, endpointParams, 'POST')['json_data']['id']
-        print(self.media_id)
+
         return self.media_id
     
     def publish_post(self):
