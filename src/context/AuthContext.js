@@ -47,8 +47,10 @@ export function AuthProvider({ children }) {
     useEffect(() => { // set the user in currentUser once the user is created
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
-            setCurrentAdmin(user.displayName)
-            setCurrentProfilePic(user.photoURL)
+            if(user !== null) {
+                setCurrentAdmin(user.displayName)
+                setCurrentProfilePic(user.photoURL)
+            }
             setLoading(false) // after the verification of the user, we stop the loading
             if (window.innerWidth < 1300) {
                 setSidebarVisible(false)

@@ -111,7 +111,6 @@ export default function PostPage() {
     }
 
     async function post_fetch() {
-        console.log("running function post_fetch()")
         fetch('/', {
             method: "POST",
             headers: {
@@ -122,7 +121,7 @@ export default function PostPage() {
             })
         }).then(res => {
             return res.json()
-        }).then(data => console.log(data))
+        }).then(data => {})
     }
 
     async function handleSubmit(e) {
