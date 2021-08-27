@@ -165,7 +165,7 @@ export default function Analytics() {
                             <Card.Body>
                                 <Card.Title><RecentPostLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Recent Posts</h3></Card.Title>
                                 <Card.Subtitle className="mt-2"><div style={{paddingTop: "10px", paddingLeft: "20px"}}><pre style={{color: "#C93030"}}>{data_string}</pre></div></Card.Subtitle>
-                                <Card.Text className="overflow-auto mt-3" style={{maxHeight: "700px", width: "490px"}}>
+                                <Card.Text className="overflow-auto mt-3" style={{maxHeight: "700px", width: "495px"}}>
                                     {loading && <Spinner animation="border" variant="danger" style={{position: "absolute", top: "50%", left: "50%"}} />}
                                     {!loading && 
                                     (<div>

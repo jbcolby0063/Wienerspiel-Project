@@ -39,7 +39,6 @@ class twitter_post:
                 res = requests.get(x)
                 media = io.BytesIO(res.content)
                 ftype = io.BufferedReader(media)
-                print('image')
                 response = self.api.media_upload(file_name, file=ftype)
                 self.media_id.append(response.media_id_string)
                 
@@ -49,7 +48,6 @@ class twitter_post:
                 res = requests.get(x)
                 media = io.BytesIO(res.content)
                 ftype = io.BufferedReader(media)
-                print('video')
                 response = self.api.media_upload(file_name, file=ftype, chunked=True, media_category= media_category)
                 self.media_id.append(response.media_id_string)
             index += 1
