@@ -24,15 +24,24 @@ export default function PostPage() {
     const [previewFile, setPreviewFile] = useState([])
     const [base64File, setBase64File] = useState([])
     const [error, setError] = useState(false)
+    const [sucess, setSucess] = useState(false)
     const [imageError, setImageError] = useState(false)
     const [instagramError, setInstagramError] = useState(false)
     const [checkCount, setCheckCount] = useState(0)
     const [socialList, setSocialList] = useState([])
     const { sidebarVisible, currentUser } = useAuth()
     const history = useHistory()
-    
+
+
+    function setAlert() {
+        setError(false)
+        setImageError(false)
+        setInstagramError(false)
+        setSucess(false)
+    }
 
     function handleFile(e) { // convert image/video files into image url
+        setAlert()
         if (e.target.files[0]) {
             if(e.target.files[0].type.split("/")[0] !== fileType){
                 var currentFiles = [e.target.files[0]]
@@ -54,6 +63,7 @@ export default function PostPage() {
     }
 
     function cancelImage() { // remove image/video
+        setAlert()
         setUploadFile([])
         setPreviewFile([])
         setBase64File([])
@@ -62,6 +72,7 @@ export default function PostPage() {
     }
 
     function isChecked(e) { 
+        setAlert()
         if (e.target.checked) { // if current social media is chosen, push it into the list and add 1 to checkCount
             setCheckCount(checkCount + 1)
             setSocialList(arr => [...arr, e.target.id])
@@ -129,9 +140,7 @@ export default function PostPage() {
 
         try{
             setUploadLoading(true)
-            setError(false)
-            setImageError(false)
-            setInstagramError(false)
+            setAlert()
 
             await checkBeforeSubmit()
             for(const file of uploadFile) {
@@ -139,7 +148,7 @@ export default function PostPage() {
             }
             await handleDB()
             await post_fetch()
-            history.push("/analytics")
+            setSucess("Successfully uploaded the post")
         } catch(rej) {
             if (rej === "imageError") {
                 setImageError("Upload Image/Video") 
@@ -165,10 +174,11 @@ export default function PostPage() {
                     <hr />
                     <p>Only 1 image is allowed for Instagram</p>
                 </Alert>}
+            {sucess && <Alert variant="success">{sucess}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <div className="d-flex align-items-center justify-content-center">
                     <Form.Group id="title">
-                        <Form.Control className="mb-1" type="text" ref={titleRef} required placeholder="Title for the post" style={{width: "300px", height:"40px"}}/>
+                        <Form.Control className="mb-1" type="text" ref={titleRef} required placeholder="Title for the post" onChange={() => {setAlert()}} style={{width: "300px", height:"40px"}}/>
                     </Form.Group>
                     </div>
                 
@@ -211,7 +221,7 @@ export default function PostPage() {
                 
 
                             <Form.Group id="textpost">
-                                <Form.Control className="border border-white overflow-auto mt-3" ref={textRef} as="textarea" required rows={10} placeholder="Write a caption..." style={{minHeight: "200px", maxHeight: "200px"}}/>
+                                <Form.Control className="border border-white overflow-auto mt-3" ref={textRef} as="textarea" required rows={10} onChange={() => {setAlert()}} placeholder="Write a caption..." style={{minHeight: "200px", maxHeight: "200px"}}/>
                             </Form.Group>
                             <Form.Group>
                                 <Form.File id="upload-image" ref={imageRef} accept="image/*, video/*" onChange={handleFile} style={{display: "none"}} />
