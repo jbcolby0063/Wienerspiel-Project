@@ -32,7 +32,7 @@ Integration of Overall analytics page
 @app.route("/analytics") #used in TotalViews.js and FacebookOverall.js
 def analytics():
     """Returns data to plot on FacebookOverall.js and TotalViews.js"""
-    return {'engagement':fb_post_analytics.get_fb_weekly_page_views_total(),
+    return {'engagement':sum(fb_y_fnl),
             'impressions':fb_post_analytics.get_fb_page_impressions_by_age_gender_unique(),
             'reach_x_labels':reach_x, 'reach_y_labels':reach_y, 'follower_x_labels':follower_x, 'follower_y_labels':follower_y,
             'fb_x_labels':fb_x_fnl, 'fb_y_labels':fb_y_fnl, 'ig_y_labels':ig_y_fnl,

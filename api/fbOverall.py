@@ -40,6 +40,8 @@ for value in ig_get.values():
     for val in value.values():
         ig_y.append(val)
 
+
+
 # if (len(fb_x) > 7):
 #     # count_delete = len(fb_x) - 7
 #     # del fb_x[:count_delete]
@@ -74,7 +76,6 @@ for n in reversed(range(7)): # last 7 days
             ig_y_fnl.append(0)
 
 
-    
 
 
 
