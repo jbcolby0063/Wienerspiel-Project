@@ -11,11 +11,10 @@ import time
 
 app = Flask(__name__)
 
-#Organization of the files
+
 '''
 Integration of Posting Feature
 '''
-#untested code MAKE SURE TO COMMENT THIS FUNCTION BEFORE TESTING CODE
 @app.route('/', methods=['POST', 'GET'])
 def post_to_platform():
     if (request.method == 'POST'):
@@ -28,7 +27,6 @@ def post_to_platform():
 '''
 Integration of Overall analytics page
 '''
-
 @app.route("/analytics") #used in TotalViews.js and FacebookOverall.js
 def analytics():
     """Returns data to plot on FacebookOverall.js and TotalViews.js"""
