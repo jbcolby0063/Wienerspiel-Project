@@ -129,7 +129,7 @@ export default function Analytics() {
                     {error && <Alert variant="danger">{error}</Alert>} 
                         <Card className="shadow mt-3" style={{width: "780px", height: "350px"}}>
                             <Card.Body>
-                                <Card.Title><TotalViewsLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Total Viewers</h3></Card.Title>
+                                <Card.Title><TotalViewsLogo style={analyticsIcons} /><h3 style={{color: "#BB0101"}}>Daily Page Views</h3></Card.Title>
                                 <Card.Subtitle className="mb-2" style={{color:"#878787"}}>Last 7 Days</Card.Subtitle>
                                 <Card.Text>
                                     {loading && <Spinner animation="border" variant="danger" style={{position: "absolute", top: "50%", left: "50%"}} />}
