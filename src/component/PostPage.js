@@ -114,7 +114,9 @@ export default function PostPage() {
             if(uploadFile.length === 0) { // if an image is not uploaded yet
                 reject("imageError")
             } else if (instagramRef.current.checked && uploadFile.length > 1) { // limit to 1 image for instagram
-                reject("instagramError")
+                reject("instagramErrorImage")
+            } else if(instagramRef.current.checked && fileType === "video") {
+                reject("instagramErrorVideo")
             } else {
                 resolve("resolve")
             }
@@ -152,8 +154,10 @@ export default function PostPage() {
         } catch(rej) {
             if (rej === "imageError") {
                 setImageError("Upload Image/Video") 
-            } else if (rej === "instagramError") {
-                setInstagramError("Please upload 1 image for instagram")
+            } else if (rej === "instagramErrorImage") {
+                setInstagramError("Please upload 1 image for Instagram")
+            } else if (rej === "instagramErrorVideo") {
+                setInstagramError("Only an image is allowed to post for Instagram")
             } else {
                 setError("Failed to Upload")
             }
@@ -170,9 +174,9 @@ export default function PostPage() {
             {imageError && <Alert variant="danger">{imageError}</Alert>}
             {instagramError && 
                 <Alert className="w-100" variant="danger">
-                    <Alert.Heading>Instagram Image Limit</Alert.Heading>
+                    <Alert.Heading>Instagram Post Limit</Alert.Heading>
                     <hr />
-                    <p>Only 1 image is allowed for Instagram</p>
+                    <p>Only 1 image is allowed to post for Instagram</p>
                 </Alert>}
             {sucess && <Alert variant="success">{sucess}</Alert>}
                 <Form onSubmit={handleSubmit}>
