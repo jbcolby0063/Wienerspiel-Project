@@ -4,7 +4,7 @@ import time
 import asyncio
 import facebook
 import pyshorteners
-
+from firebase import firebase
 
 #only allows for one image post or 1 video post!
 class insta_post:
