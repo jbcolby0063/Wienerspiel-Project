@@ -19,6 +19,7 @@ class fb_post:
             firebase_connection = firebase.FirebaseApplication(url, None)
             self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
             self.graph_api_fb = facebook.GraphAPI(access_token= self.access, version= 3.1)
+            print(self.graph_api_fb)
         except Exception as e:
             print(e)
         self.post_title = post_title
