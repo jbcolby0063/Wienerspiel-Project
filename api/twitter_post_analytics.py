@@ -2,6 +2,7 @@ import tweepy
 import requests
 import json
 from requests_oauthlib import OAuth1
+import firebase
 from PIL import Image
 import requests
 import io
@@ -10,8 +11,15 @@ import time
 class twitter_post:
     def __init__(self, post_description, post_title, media_type):
         try:
-            auth = tweepy.OAuthHandler('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb', callback='http://12.0.0.1')
-            auth.set_access_token('1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K')
+            url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+            firebase_connection = firebase.FirebaseApplication(url, None)
+            self.twitter_api_key = firebase_connection.get('apikeys/twitter_api/twitter_API_key/','')
+            self.twitter_api_secret_key = firebase_connection.get('apikeys/twitter_api/twitter_API_secret_key/','')
+            self.twitter_bearer_token = firebase_connection.get('apikeys/twitter_api/twitter_Bearer_token/','')
+            self.twitter_access_token = firebase_connection.get('apikeys/twitter_api/twitter_Access_token/','')
+            self.twitter_access_token_secret = firebase_connection.get('apikeys/twitter_api/twitter_Access_token_secret/','')
+            auth = tweepy.OAuthHandler(self.twitter_api_key, self.twitter_api_secret_key, callback='http://12.0.0.1')
+            auth.set_access_token(self.twitter_access_token, self.twitter_access_token_secret)
             self.api = tweepy.API(auth)
         except Exception as e:
             print(e)
@@ -82,21 +90,21 @@ class twitter_post:
         return tweet_status.favorite_count
 
     def impression_counter(self): 
-        headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
+        headeroauth = OAuth1(self.twitter_api_key, self.twitter_api_secret_key,self.twitter_access_token, self.twitter_access_token_secret, signature_type='auth_header')
         print(headeroauth)
         url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + '?tweet.fields=organic_metrics'
         data_dict = requests.request('GET', url, auth=headeroauth)
         return data_dict.json()['data']['organic_metrics']['impression_count']
     
     def reply_counter(self):
-        headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
+        headeroauth = OAuth1(self.twitter_api_key, self.twitter_api_secret_key,self.twitter_access_token, self.twitter_access_token_secret, signature_type='auth_header')
         print(headeroauth)
         url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + '?tweet.fields=organic_metrics'
         data_dict = requests.request('GET', url, auth=headeroauth)
         return data_dict.json()['data']['organic_metrics']['reply_count']
     
     def url_link_clicks_twitter(self):
-        headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
+        headeroauth = OAuth1(self.twitter_api_key, self.twitter_api_secret_key,self.twitter_access_token, self.twitter_access_token_secret, signature_type='auth_header')
         print(headeroauth)
         url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + '?tweet.fields=organic_metrics'
         data_dict = requests.request('GET', url, auth=headeroauth)
@@ -106,7 +114,7 @@ class twitter_post:
             return None
     
     def user_profile_clicks_twitter(self):
-        headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
+        headeroauth = OAuth1(self.twitter_api_key, self.twitter_api_secret_key,self.twitter_access_token, self.twitter_access_token_secret, signature_type='auth_header')
         print(headeroauth)
         url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + '?tweet.fields=organic_metrics'
         data_dict = requests.request('GET', url, auth=headeroauth)
@@ -115,7 +123,7 @@ class twitter_post:
     def media_quartile_counter_twitter(self):
         if(self.media_type == 'VIDEO'):
             url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + '?tweet.fields=non_public_metrics,organic_metrics&media.fields=non_public_metrics,organic_metrics&expansions=attachments.media_keys'
-            headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
+            headeroauth = OAuth1(self.twitter_api_key, self.twitter_api_secret_key,self.twitter_access_token, self.twitter_access_token_secret, signature_type='auth_header')
             data_dict = requests.request('GET', url, auth=headeroauth)
             
             quartile_count = dict()
@@ -131,7 +139,7 @@ class twitter_post:
     def video_view_count_twitter(self):
         if(self.media_type == 'VIDEO'):
             url = 'https://api.twitter.com/2/tweets/' + str(self.post_status_id) + '?tweet.fields=non_public_metrics,organic_metrics&media.fields=non_public_metrics,organic_metrics&expansions=attachments.media_keys'
-            headeroauth = OAuth1('OAgAOPP8COMX8il0gjUzRMHia', 'kBy2A5PeNo58GwTrzm0l9L3WQnE6IGEB86hdqxwq7oZwlHfBXb','1392227559815979009-bwt0mYypGs5ZRPUNFc4PS19dhj8VvB', 'EkbVMFfrz0ISKF855GUUShI3GmyqqzuDcdyw27dvopP6K', signature_type='auth_header')
+            headeroauth = OAuth1(self.twitter_api_key, self.twitter_api_secret_key,self.twitter_access_token, self.twitter_access_token_secret, signature_type='auth_header')
             data_dict = requests.request('GET', url, auth=headeroauth)
             return data_dict.json()['includes']['media'][0]['organic_metrics']['view_count']
         return None
