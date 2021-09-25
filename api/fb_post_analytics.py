@@ -4,6 +4,7 @@ import requests
 import os
 import time
 from PIL import Image
+from firebase import firebase
 import requests
 import io
 
@@ -14,7 +15,9 @@ class fb_post:
     def __init__(self, post_title, post_description, media_type):
         #connecting to facebook api
         try:
-            self.access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+            url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+            firebase_connection = firebase.FirebaseApplication(url, None)
+            self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
             self.graph_api_fb = facebook.GraphAPI(access_token= self.access, version= 3.1)
         except Exception as e:
             print(e)
@@ -118,31 +121,41 @@ class fb_post:
 
 #page overall statistics
 def get_fb_page_post_engagements():
-    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    firebase_connection = firebase.FirebaseApplication(url, None)
+    self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_post_engagements/week?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][1]['value']
     return page_engagement
 
 def get_fb_page_impressions_by_age_gender_unique(): #need to check metric : provides no information
-    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    firebase_connection = firebase.FirebaseApplication(url, None)
+    self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_impressions_by_age_gender_unique/week?fields=values', args=None, post_args=None, method='GET')['data']
     return page_engagement
 
 def get_fb_weekly_page_views_total():
-   access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+   url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+   firebase_connection = firebase.FirebaseApplication(url, None)
+   self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
    graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
    page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_views_total/week?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][1]['value']
    return page_engagement
 
 def get_fb_daily_page_views_total():
-   access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+   url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+   firebase_connection = firebase.FirebaseApplication(url, None)
+   self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
    graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
    page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_views_total/day?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][1]['value']
    return page_engagement
 
 def get_fb_page_fans_online_per_day(): #need to check metric : provides no information
-    access = 'EAAoK4UW8A2cBAIKGpblZCvZAdb7bM5Q6ZCSuPtolD5CYOf0z5cTijvaNhtVQ5VGM82DXk9EWpf0gk7IUWkAbFvezW4j7NmmWODTHseXG1mGEQtAhZCGiqBEop52KYJLsIMSRghPI8zzD4EaEy3kCOZArnh7ocXWB4Izh3LDh3WTwCSOdHWjw8ORuGwlCrA6sZD'
+    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    firebase_connection = firebase.FirebaseApplication(url, None)
+    self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_fans_online_per_day/week?fields=values', args=None, post_args=None, method='GET')['data']
     return page_engagement
