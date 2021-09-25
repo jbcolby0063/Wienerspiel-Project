@@ -11,7 +11,7 @@ class insta_post:
     def __init__(self, post_title, post_description, media_type):
         url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
         firebase_connection = firebase.FirebaseApplication(url, None)
-        self.access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
+        self.access = firebase_connection.get('/facebook_instagram_api/facebook_instagram_api_key/','')
         self.graph_domain = 'https://graph.facebook.com/'
         self.graph_version = 'v10.0'
         self.endpoint_base = self.graph_domain + self.graph_version + '/'
@@ -110,7 +110,7 @@ class insta_post:
 def get_insta_account_reach_count():
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
+    access = firebase_connection.get('/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=reach&period=week&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data'][0]['values'][1]['value']
@@ -118,7 +118,7 @@ def get_insta_account_reach_count():
 def get_insta_account_follower_count(): #need a minimum of 100 followers in order to get data
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
+    access = firebase_connection.get('/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=follower_count&period=day&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
@@ -126,7 +126,7 @@ def get_insta_account_follower_count(): #need a minimum of 100 followers in orde
 def get_insta_account_audience_country(): #need a minimum of 100 followers in order to get data
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
+    access = firebase_connection.get('/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_country&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
@@ -134,7 +134,7 @@ def get_insta_account_audience_country(): #need a minimum of 100 followers in or
 def get_insta_account_profile_views():
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
+    access = firebase_connection.get('/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=profile_views&period=day&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     print('info:', info)
@@ -144,7 +144,7 @@ def get_insta_account_profile_views():
 def get_insta_account_online_followers(): #need a minimum of 100 followers in order to get data
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
+    access = firebase_connection.get('/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=online_followers&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
@@ -152,7 +152,7 @@ def get_insta_account_online_followers(): #need a minimum of 100 followers in or
 def get_insta_account_audience_gender_age(): #need a minimum of 100 followers in order to get data
     url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
     firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('facebook_instagram_api/facebook_instagram_api_key/','')
+    access = firebase_connection.get('/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_gender_age&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
