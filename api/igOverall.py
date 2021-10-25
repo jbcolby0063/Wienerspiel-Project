@@ -3,8 +3,14 @@ from datetime import datetime
 from firebase import firebase
 import schedule
 import insta_post
+import os
+from dotenv import load_dotenv
+from pathlib import Path
 
-firebasePost = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
+dotenv_path = Path('../.env.local')
+load_dotenv(dotenv_path=dotenv_path)
+
+firebasePost = firebase.FirebaseApplication(os.getenv('REACT_APP_FIREBASE_DATABASE_URL'), None)
 
 reach_data = {
     datetime.today().strftime("%d-%m"): insta_post.get_insta_account_reach_count()
@@ -21,7 +27,7 @@ def update_react_count():
 # update_react_count() #Call function to post reach data and follower data to Firebase
 
 #Retrieve data from Firebase
-firebaseGet = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
+firebaseGet = firebase.FirebaseApplication(os.getenv('REACT_APP_FIREBASE_DATABASE_URL'), None)
 reach_get = firebaseGet.get('OverallAnalytics/InstagramOverall/reachCount', '')
 follower_get = firebaseGet.get('OverallAnalytics/InstagramOverall/followerCount', '')
 

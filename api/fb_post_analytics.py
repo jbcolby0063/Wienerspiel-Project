@@ -7,6 +7,12 @@ from PIL import Image
 from firebase import firebase
 import requests
 import io
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path('../.env.local')
+load_dotenv(dotenv_path=dotenv_path)
 
 
 
@@ -15,11 +21,10 @@ class fb_post:
     def __init__(self, post_title, post_description, media_type):
         #connecting to facebook api
         try:
-            url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+            url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
             firebase_connection = firebase.FirebaseApplication(url, None)
             self.access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
             self.graph_api_fb = facebook.GraphAPI(access_token= self.access, version= 3.1)
-            print(self.graph_api_fb)
         except Exception as e:
             print(e)
         self.post_title = post_title
@@ -122,7 +127,7 @@ class fb_post:
 
 #page overall statistics
 def get_fb_page_post_engagements():
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
@@ -130,7 +135,7 @@ def get_fb_page_post_engagements():
     return page_engagement
 
 def get_fb_page_impressions_by_age_gender_unique(): #need to check metric : provides no information
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
@@ -138,7 +143,7 @@ def get_fb_page_impressions_by_age_gender_unique(): #need to check metric : prov
     return page_engagement
 
 def get_fb_weekly_page_views_total():
-   url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+   url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
    firebase_connection = firebase.FirebaseApplication(url, None)
    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
    graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
@@ -146,7 +151,7 @@ def get_fb_weekly_page_views_total():
    return page_engagement
 
 def get_fb_daily_page_views_total():
-   url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+   url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
    firebase_connection = firebase.FirebaseApplication(url, None)
    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
    graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
@@ -154,7 +159,7 @@ def get_fb_daily_page_views_total():
    return page_engagement
 
 def get_fb_page_fans_online_per_day(): #need to check metric : provides no information
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)

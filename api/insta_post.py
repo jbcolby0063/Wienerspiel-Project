@@ -5,11 +5,17 @@ import asyncio
 import facebook
 import pyshorteners
 from firebase import firebase
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path('../.env.local')
+load_dotenv(dotenv_path=dotenv_path)
 
 #only allows for one image post or 1 video post!
 class insta_post:
     def __init__(self, post_title, post_description, media_type):
-        url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+        url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
         firebase_connection = firebase.FirebaseApplication(url, None)
         self.access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
         self.graph_domain = 'https://graph.facebook.com/'
@@ -108,7 +114,7 @@ class insta_post:
 
 #user account analytics
 def get_insta_account_reach_count():
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=reach&period=week&fields=values&access_token=' + access
@@ -116,7 +122,7 @@ def get_insta_account_reach_count():
     return info['data'][0]['values'][1]['value']
 
 def get_insta_account_follower_count(): #need a minimum of 100 followers in order to get data
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=follower_count&period=day&fields=values&access_token=' + access
@@ -124,7 +130,7 @@ def get_insta_account_follower_count(): #need a minimum of 100 followers in orde
     return info['data']
 
 def get_insta_account_audience_country(): #need a minimum of 100 followers in order to get data
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_country&period=lifetime&fields=values&access_token=' + access
@@ -132,7 +138,7 @@ def get_insta_account_audience_country(): #need a minimum of 100 followers in or
     return info['data']
 
 def get_insta_account_profile_views():
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=profile_views&period=day&fields=values&access_token=' + access
@@ -142,7 +148,7 @@ def get_insta_account_profile_views():
 
 
 def get_insta_account_online_followers(): #need a minimum of 100 followers in order to get data
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=online_followers&period=lifetime&fields=values&access_token=' + access
@@ -150,7 +156,7 @@ def get_insta_account_online_followers(): #need a minimum of 100 followers in or
     return info['data']
 
 def get_insta_account_audience_gender_age(): #need a minimum of 100 followers in order to get data
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_gender_age&period=lifetime&fields=values&access_token=' + access

@@ -5,6 +5,12 @@ from requests.api import get
 import insta_post
 import twitter_post_analytics
 import fb_post_analytics
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path('../.env.local')
+load_dotenv(dotenv_path=dotenv_path)
 
 
 #Connects to Firebase for Posting
@@ -13,17 +19,17 @@ def get_post_information(firebase_table_id):
     This function will get the information for the firebase database
     returns the post information in a dictionary format
     '''
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com' #this is the url for the firebase database (change if necessary)
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL') #this is the url for the firebase database (change if necessary)
     firebase_connection = firebase.FirebaseApplication(url, None)
     post_information = firebase_connection.get('/users/' + firebase_table_id, '')
     return post_information #will also contain post-specific analytics too
 
 def get_media_url(uploadTimeID, media_files):
     config = { #need the api keys for pyrebase
-    "apiKey": "AIzaSyATuqPG2BFZQX0QQJNR-0g6gb5FGUkMnA4",
-    "authDomain": "auth-development-3cb88.firebaseapp.com",
-    "databaseURL": "https://auth-development-3cb88-default-rtdb.firebaseio.com",
-    "storageBucket": "auth-development-3cb88.appspot.com",
+    "apiKey": os.getenv('REACT_APP_FIREBASE_API_KEY'),
+    "authDomain": os.getenv('REACT_APP_FIREBASE_AUTH_DOMAIN'),
+    "databaseURL": os.getenv('REACT_APP_FIREBASE_DATABASE_URL'),
+    "storageBucket": os.getenv('REACT_APP_FIREBASE_STORAGE_BUCKET'),
     "serviceAccount": "../src/serviceAccountKey.json"
     }
     firebase_connection = pyrebase.initialize_app(config)
@@ -36,7 +42,7 @@ def get_media_url(uploadTimeID, media_files):
 
 
 def get_fb_table_ids(): #gets the list of firebase table ids
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     firebase_table_id = list(firebase_connection.get('users/', '').keys())
     return firebase_table_id
@@ -47,7 +53,7 @@ def publish_to_platform():
     will return the post id for each platform in the form of an dictionary object
     will also return the media type in the dictionary object (either 'IMAGE' or 'VIDEO')
     '''
-    url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com' #this is the url for the firebase database
+    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL') #this is the url for the firebase database
     firebase_connection = firebase.FirebaseApplication(url, None)
     firebase_table_id = list(firebase_connection.get('users/', '').keys())[-1]
     post_information = get_post_information(firebase_table_id)

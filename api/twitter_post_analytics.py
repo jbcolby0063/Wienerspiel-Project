@@ -7,11 +7,17 @@ from PIL import Image
 import requests
 import io
 import time
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path('../.env.local')
+load_dotenv(dotenv_path=dotenv_path)
 
 class twitter_post:
     def __init__(self, post_description, post_title, media_type):
         try:
-            url = 'https://auth-development-3cb88-default-rtdb.firebaseio.com/'
+            url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
             firebase_connection = firebase.FirebaseApplication(url, None)
             self.twitter_api_key = firebase_connection.get('apikeys/twitter_api/twitter_API_key/','')
             self.twitter_api_secret_key = firebase_connection.get('apikeys/twitter_api/twitter_API_secret_key/','')

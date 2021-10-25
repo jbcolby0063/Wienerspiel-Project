@@ -4,8 +4,14 @@ import insta_post
 from datetime import datetime, timedelta
 from firebase import firebase
 import schedule
+import os
+from dotenv import load_dotenv
+from pathlib import Path
 
-firebasePost = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
+dotenv_path = Path('../.env.local')
+load_dotenv(dotenv_path=dotenv_path)
+
+firebasePost = firebase.FirebaseApplication(os.getenv('REACT_APP_FIREBASE_DATABASE_URL'), None)
 ig_data = {
     datetime.today().strftime("%d-%m-%y"): insta_post.get_insta_account_reach_count(),
 }
@@ -19,7 +25,7 @@ def update_daily_views():
 
 update_daily_views() #Call function to update daily views when needed
 
-firebaseGet = firebase.FirebaseApplication("https://auth-development-3cb88-default-rtdb.firebaseio.com", None)
+firebaseGet = firebase.FirebaseApplication(os.getenv('REACT_APP_FIREBASE_DATABASE_URL'), None)
 fb_get = firebaseGet.get('ViewsGraph/FacebookOverall/totalViews', '')
 ig_get = firebaseGet.get('ViewsGraph/InstagramOverall/totalViews', '')
 
