@@ -113,34 +113,32 @@ class insta_post:
 
 
 #user account analytics
-def get_insta_account_reach_count():
+def get_access():
     url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    return access
+
+def get_insta_account_reach_count():
+    access = get_access()
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=reach&period=week&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data'][0]['values'][1]['value']
 
 def get_insta_account_follower_count(): #need a minimum of 100 followers in order to get data
-    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-    firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    access = get_access()
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=follower_count&period=day&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
 
 def get_insta_account_audience_country(): #need a minimum of 100 followers in order to get data
-    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-    firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    access = get_access()
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_country&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
 
 def get_insta_account_profile_views():
-    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-    firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    access = get_access()
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=profile_views&period=day&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     print('info:', info)
@@ -148,17 +146,13 @@ def get_insta_account_profile_views():
 
 
 def get_insta_account_online_followers(): #need a minimum of 100 followers in order to get data
-    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-    firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    access = get_access()
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=online_followers&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
 
 def get_insta_account_audience_gender_age(): #need a minimum of 100 followers in order to get data
-    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-    firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    access = get_access()
     url = 'https://graph.facebook.com/v10.0/17841448226950067/insights?metric=audience_gender_age&period=lifetime&fields=values&access_token=' + access
     info = requests.request('GET', url).json()
     return info['data']
