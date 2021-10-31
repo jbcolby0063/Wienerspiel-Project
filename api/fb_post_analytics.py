@@ -126,7 +126,7 @@ class fb_post:
 
 
 #page overall statistics
-def get_access()
+def get_access():
     url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
