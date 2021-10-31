@@ -53,6 +53,7 @@ export default function PostPage() {
             
             setUploadFile(currentFiles)
             setFileType(e.target.files[0].type.split("/")[0])
+
             for (let i = 0; i < currentFiles.length; i++) {
                 currentPreviewFiles.push(URL.createObjectURL(currentFiles[i])) // preview files path
             }
@@ -117,7 +118,15 @@ export default function PostPage() {
                 reject("instagramErrorImage")
             } else if(instagramRef.current.checked && fileType === "video") {
                 reject("instagramErrorVideo")
-            } else {
+            } else if(instagramRef.current.checked && uploadFile.length == 1 && fileType === "image"){ // instagram image dimension check 
+                var image = new Image()
+                image.src = previewFile[0]
+                if(image.width < 0.8 * image.height || image.width > 1.91 * image.height){
+                    reject("instagramErrorDimension")
+                }else{
+                    resolve("resolve")
+                }
+            }else {
                 resolve("resolve")
             }
         })
@@ -158,6 +167,8 @@ export default function PostPage() {
                 setInstagramError("Please upload 1 image for Instagram")
             } else if (rej === "instagramErrorVideo") {
                 setInstagramError("Only an image is allowed to post for Instagram")
+            } else if (rej == "instagramErrorDimension") {
+                setInstagramError("Please upload an image that falls within a 4:5 to 1.91:1 range")
             } else {
                 setError("Failed to Upload")
             }
@@ -176,7 +187,7 @@ export default function PostPage() {
                 <Alert className="w-100" variant="danger">
                     <Alert.Heading>Instagram Post Limit</Alert.Heading>
                     <hr />
-                    <p>Only 1 image is allowed to post for Instagram</p>
+                    <p>{instagramError}</p>
                 </Alert>}
             {sucess && <Alert variant="success">{sucess}</Alert>}
                 <Form onSubmit={handleSubmit}>
