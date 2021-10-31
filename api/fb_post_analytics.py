@@ -126,42 +126,38 @@ class fb_post:
 
 
 #page overall statistics
-def get_fb_page_post_engagements():
+def get_access()
     url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
     firebase_connection = firebase.FirebaseApplication(url, None)
     access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    return access
+
+def get_fb_page_post_engagements():
+    access = get_access()
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_post_engagements/week?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][1]['value']
     return page_engagement
 
 def get_fb_page_impressions_by_age_gender_unique(): #need to check metric : provides no information
-    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-    firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    access = get_access()
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_impressions_by_age_gender_unique/week?fields=values', args=None, post_args=None, method='GET')['data']
     return page_engagement
 
 def get_fb_weekly_page_views_total():
-   url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-   firebase_connection = firebase.FirebaseApplication(url, None)
-   access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+   access = get_access()
    graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
    page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_views_total/week?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][1]['value']
    return page_engagement
 
 def get_fb_daily_page_views_total():
-   url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-   firebase_connection = firebase.FirebaseApplication(url, None)
-   access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+   access = get_access()
    graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
    page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_views_total/day?fields=values', args=None, post_args=None, method='GET')['data'][0]['values'][1]['value']
    return page_engagement
 
 def get_fb_page_fans_online_per_day(): #need to check metric : provides no information
-    url = os.getenv('REACT_APP_FIREBASE_DATABASE_URL')
-    firebase_connection = firebase.FirebaseApplication(url, None)
-    access = firebase_connection.get('/apikeys/facebook_instagram_api/facebook_instagram_api_key/','')
+    access = get_access()
     graph_api_fb = facebook.GraphAPI(access_token= access, version= 3.1)
     page_engagement = graph_api_fb.request(path= '/102077748764166/insights/page_fans_online_per_day/week?fields=values', args=None, post_args=None, method='GET')['data']
     return page_engagement
