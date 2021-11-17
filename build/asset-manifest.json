@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.be22bfa9.chunk.css",
+    "main.js": "/static/js/main.6ea554dc.chunk.js",
+    "main.js.map": "/static/js/main.6ea554dc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9b89de3f.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9b89de3f.js.map",
+    "static/css/2.081f420c.chunk.css": "/static/css/2.081f420c.chunk.css",
+    "static/js/2.2856abe9.chunk.js": "/static/js/2.2856abe9.chunk.js",
+    "static/js/2.2856abe9.chunk.js.map": "/static/js/2.2856abe9.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.081f420c.chunk.css.map": "/static/css/2.081f420c.chunk.css.map",
+    "static/css/main.be22bfa9.chunk.css.map": "/static/css/main.be22bfa9.chunk.css.map",
+    "static/js/2.2856abe9.chunk.js.LICENSE.txt": "/static/js/2.2856abe9.chunk.js.LICENSE.txt",
+    "static/media/LogoSocial.0bb7caea.svg": "/static/media/LogoSocial.0bb7caea.svg",
+    "static/media/Subtract.45ba87ca.svg": "/static/media/Subtract.45ba87ca.svg",
+    "static/media/account.8589fa8b.svg": "/static/media/account.8589fa8b.svg",
+    "static/media/account_nonadmin.f035bc04.svg": "/static/media/account_nonadmin.f035bc04.svg",
+    "static/media/addPhotoLogo.cfc02abf.svg": "/static/media/addPhotoLogo.cfc02abf.svg",
+    "static/media/analytics.37005e51.svg": "/static/media/analytics.37005e51.svg",
+    "static/media/closeLogo.424bef49.svg": "/static/media/closeLogo.424bef49.svg",
+    "static/media/deleteLogo.1129c53a.svg": "/static/media/deleteLogo.1129c53a.svg",
+    "static/media/facebookLogo.de8e8a0f.svg": "/static/media/facebookLogo.de8e8a0f.svg",
+    "static/media/heart-1.370a2d71.png": "/static/media/heart-1.370a2d71.png",
+    "static/media/instagramLogo.ca14bdf3.svg": "/static/media/instagramLogo.ca14bdf3.svg",
+    "static/media/logout.3a48730b.svg": "/static/media/logout.3a48730b.svg",
+    "static/media/menuIcon.9db5ada4.svg": "/static/media/menuIcon.9db5ada4.svg",
+    "static/media/photoLibrary.b9a2de83.svg": "/static/media/photoLibrary.b9a2de83.svg",
+    "static/media/post.c1731d32.svg": "/static/media/post.c1731d32.svg",
+    "static/media/postDetailLogo.454f7c4d.svg": "/static/media/postDetailLogo.454f7c4d.svg",
+    "static/media/recentPostLogo.01b8d574.svg": "/static/media/recentPostLogo.01b8d574.svg",
+    "static/media/totalViewsLogo.8ee15c94.svg": "/static/media/totalViewsLogo.8ee15c94.svg",
+    "static/media/twitterLogo.1eeaeda8.svg": "/static/media/twitterLogo.1eeaeda8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9b89de3f.js",
+    "static/css/2.081f420c.chunk.css",
+    "static/js/2.2856abe9.chunk.js",
+    "static/css/main.be22bfa9.chunk.css",
+    "static/js/main.6ea554dc.chunk.js"
+  ]
+}
