@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Line } from 'react-chartjs-2'
+import Constants from '../constants'
 
 export default function TotalViews() {
     const [horizLabels, setHorizLabels] = useState([])
@@ -7,7 +8,7 @@ export default function TotalViews() {
     const [igViews, setIgViews] = useState([])
     
     useEffect(() => {
-        fetch('/analytics').then(res => res.json()).then(data => {
+        fetch(`${Constants.API_ENDPOINT}/analytics`).then(res => res.json()).then(data => {
             setHorizLabels(data.fb_x_labels)
             setFbViews(data.fb_y_labels)
             setIgViews(data.ig_y_labels)

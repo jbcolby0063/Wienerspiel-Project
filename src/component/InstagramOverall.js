@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ListGroup } from'react-bootstrap'
 import { Bar, Pie, Line } from 'react-chartjs-2'
+import Constants from '../constants'
 
 export default function InstagramOverall() {
     const [reachData, setReachData] = useState("")
@@ -73,7 +74,7 @@ export default function InstagramOverall() {
     const percentageCompare = (reachData[reachData.length-1] - reachData[reachData.length-2]) / reachData[reachData.length-2] * 100
 
     useEffect(() => {
-        fetch('/analytics').then(res => res.json()).then(data => { // data is an object
+        fetch(`${Constants.API_ENDPOINT}/analytics`).then(res => res.json()).then(data => { // data is an object
             setReachDates(data.reach_x_labels)
             setReachData(data.reach_y_labels)
             setFollowerDates(data.follower_x_labels)

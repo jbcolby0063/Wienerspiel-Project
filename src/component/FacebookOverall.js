@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import {Bar, Pie} from 'react-chartjs-2'
+import Constants from '../constants'
 
 export default function FacebookOverall() {
     const [engagemnet, setEngagement] = useState("")
@@ -42,7 +43,7 @@ export default function FacebookOverall() {
     }
 
     useEffect(() => {
-        fetch('/analytics').then(res => res.json()).then(data => {
+        fetch(`${Constants.API_ENDPOINT}/analytics`).then(res => res.json()).then(data => {
             setEngagement(data.engagement)
             
             setGenderData([40, 60])

@@ -11,6 +11,11 @@ import {ReactComponent as TwitterLogo} from '../twitterLogo.svg'
 import {ReactComponent as AddPhotoLogo} from '../addPhotoLogo.svg'
 import closeLogo from '../closeLogo.svg'
 import photoIcon from '../photoLibrary.svg'
+import Constants from '../constants'
+
+
+
+
 
 export default function PostPage() {
     const imageRef = useRef()
@@ -133,10 +138,11 @@ export default function PostPage() {
     }
 
     async function post_fetch() {
-        fetch('/', {
+        fetch(`${Constants.API_ENDPOINT}/`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 post: 1

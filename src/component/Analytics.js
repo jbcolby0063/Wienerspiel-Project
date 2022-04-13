@@ -15,6 +15,7 @@ import "../App.css"
 import TotalViews from './TotalViews'
 import FacebookOverall from './FacebookOverall'
 import InstagramOverall from './InstagramOverall'
+import Constants from '../constants'
 
 // Border Red: #BB0101
 // Background Red: rgba(187, 1, 1, 0.3)
@@ -70,7 +71,7 @@ export default function Analytics() {
 
         async function fetch_analytics() {
             const temp_dict = {}
-            await fetch('/analytics').then(res => res.json()).then(data => { // get post_analytics data (you can set all analytics data here)
+            await fetch(`${Constants.API_ENDPOINT}/analytics`).then(res => res.json()).then(data => { // get post_analytics data (you can set all analytics data here)
                 for (let [key, value] of Object.entries(data.post_analytics)) { 
                     temp_dict[key] = value
                 }
