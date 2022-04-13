@@ -59,6 +59,7 @@ DSC TAMU + Wienerspiel Project
 * pip install python-dotenv
 * pip install schedule
 * pip install facebook-sdk
+* pip install pathlib
 * npm i bootstrap react-bootstrap 
 * npm install --save react-chartjs-2 chart.js
 * npm install react-router-dom
